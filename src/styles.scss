@@ -7,12 +7,16 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-y: scroll;
+  font-family:  'Open Sans',"Helvetica Neue", sans-serif;
+}
+
+app-post {
+  background-color: white;
 }
 
 .center {
-  max-width: 1000px;
-  width: 100%;
+  max-width: 800px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -24,3 +28,8 @@ body {
   padding-top: 8px;
 }
 
+a, a:active, a:link, a:visited {
+  text-decoration: none;
+  
+  color: #002d55;
+}

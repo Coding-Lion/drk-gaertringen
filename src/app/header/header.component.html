@@ -1,22 +1,23 @@
-<header>
-  <div class="center">
-    <span class="app-title mT5">Demo</span>
-    <!--<span class="toolbar-spacer"></span>
-  <div class="toprightuser">
-    <button mat-icon-button>
-      <mat-icon>help_outline</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>apps</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>supervisor_account</mat-icon>
-    </button>
-  </div> -->
-    <a routerLink="/hvo" routerLinkActive="active">Test</a>
+<header [class.top]="top" [style.height.px]="headerHeight" >
+  <div #header  class="center" id="content">
+    <a class="logo" routerLink="/">
+      
+      <img src="assets/scalableVectorGraphics/drk-logo.svg" alt="DRK Logo" [class.top]="top" [ngStyle]="{'height.px': headerHeight - (32 - topPercent * 16) }">
+      <span class="ov" [class.top]="top" [ngStyle]="{'height.px': headerHeight - (16 - topPercent * 8), 'font-size.px': (24 - topPercent * 8) }">
+        <div>
+          Ortsverein
+        </div>
+        <div>
+          Gärtringen
+        </div>
+      </span>
+    </a>
 
-    <a routerLink="/tags/helfer-vor-ort" routerLinkActive="active">HVO</a>
-    <a routerLink="/tags/angebote" routerLinkActive="active">Angebote</a>
-    <a routerLink="/tags/aktiv-werden" routerLinkActive="active">Aktiv Werden</a>
+    <div class="space"></div>
+    <a class="nav-item" routerLink="/hvo" routerLinkActive="active">Test</a>
+    <a class="nav-item" routerLink="/tags/helfer-vor-ort" routerLinkActive="active">HVO</a>
+    <a class="nav-item" routerLink="/tags/angebote" routerLinkActive="active">Angebote</a>
+    <a class="nav-item" routerLink="/tags/aktiv-werden" routerLinkActive="active">Aktiv Werden</a>
+    <div class="space"></div>
   </div>
 </header>
