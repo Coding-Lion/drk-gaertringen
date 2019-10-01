@@ -1,0 +1,3 @@
+<div class="center content">
+    <a *ngFor="let post of posts" [routerLink]="'/' + post.slug">{{post.title}}</a>
+</div>
