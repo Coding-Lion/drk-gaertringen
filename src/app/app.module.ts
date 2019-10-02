@@ -59,6 +59,7 @@ export class AppModule {
     @Inject(APP_ID) private appId: string
   ) {
     console.log(GhostContentAPI);
+    
     ghostApi = new GhostContentAPI({
       url: "https://rkgaertringen.hyperleague.de",
       key: "400063becdc8344b52789110a5",

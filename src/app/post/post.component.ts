@@ -20,6 +20,7 @@ import {
   transition
 } from "@angular/animations";
 import { css } from "./post-content-css";
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -53,12 +54,13 @@ export class PostComponent implements OnInit {
     private router: Router,
     private element: ElementRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private compiler: Compiler
+    private compiler: Compiler,
+    private http: HttpClient
   ) {}
   private componentRef: ComponentRef<{}>;
 
   posts = { html: "" };
-  postHtml;
+  postHtml = "";
   isLoading = true;
 
   @ViewChild("container", { read: ViewContainerRef, static: false })
@@ -95,10 +97,13 @@ export class PostComponent implements OnInit {
 
   async initialiseState(id) {
     this.isLoading = true;
-    this.posts = await ghostApi.posts.read({ slug: id });
-    this.postHtml = "<style>" + css + "</style>" + this.posts.html;
+    this.http.get(`https://rkgaertringen.hyperleague.de/ghost/api/v2/content/posts/slug/${id}/?key=400063becdc8344b52789110a5&slug=${id}`).subscribe((data: any) => {
+      this.posts = data.posts[0];
+      this.postHtml = "<style>" + css + "</style>" + this.posts.html;
+      this.isLoading = false;
+    })
+    // this.posts = await ghostApi.posts.read({ slug: id });
     
-    this.isLoading = false;
 
     // setTimeout(async () => {
     // }, 150);
