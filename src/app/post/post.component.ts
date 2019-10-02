@@ -5,14 +5,13 @@ import {
   ViewContainerRef,
   ComponentRef,
   Compiler,
-  ComponentFactory,
-  NgModule,
-  ModuleWithComponentFactories,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  HostListener,
+  Directive,
+  ElementRef,
 } from "@angular/core";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule, Router } from "@angular/router";
 import { ghostApi } from "../app.module";
-import { CommonModule } from "@angular/common";
 import {
   trigger,
   state,
@@ -20,12 +19,13 @@ import {
   style,
   transition
 } from "@angular/animations";
-import { css } from './post-content-css';
+import { css } from "./post-content-css";
+
 
 @Component({
   selector: "app-post",
   templateUrl: "post.component.html",
-  styleUrls: ["./post.component.css"],
+  styleUrls: ["./post.component.scss"],
 
   animations: [
     trigger("reloading", [
@@ -50,6 +50,8 @@ import { css } from './post-content-css';
 export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private element: ElementRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private compiler: Compiler
   ) {}
@@ -62,7 +64,29 @@ export class PostComponent implements OnInit {
   @ViewChild("container", { read: ViewContainerRef, static: false })
   container: ViewContainerRef;
 
+
+  @HostListener("click", ["$event"])
+  public onClick(event) {
+    event.preventDefault();
+    console.log(event.target.tagName)
+    if (event.target.tagName === "A") {
+      const target = event.target;
+      console.log(event.target.hostname)
+      console.log(window.location.hostname)
+      // const currentURL = new URL(window.location.href);
+      // const newURL = new URL(target);
+      
+      const isLocal = target.hostname === window.location.hostname;
+      if (isLocal) {
+        this.router.navigate([target.getAttribute("href")]);
+      }
+    } else {
+      return;
+    }
+  }
+
   async ngOnInit() {
+    this.initialiseState(this.route.snapshot.params.id);
     this.route.params.subscribe(params => {
       const id = this.route.snapshot.params.id;
       this.initialiseState(id); // reset and set based on new parameter this time
@@ -71,70 +95,12 @@ export class PostComponent implements OnInit {
 
   async initialiseState(id) {
     this.isLoading = true;
+    this.posts = await ghostApi.posts.read({ slug: id });
+    this.postHtml = "<style>" + css + "</style>" + this.posts.html;
+    
+    this.isLoading = false;
 
-    setTimeout(async () => {
-      this.posts = await ghostApi.posts.read({ slug: id });
-      this.postHtml = this.posts.html
-        .replace(/href="[\w.\/\\\?\&\%\:\-]+/g, i => {
-          if (i.includes("https://")) {
-          } else {
-            i = i.replace(/href/g, "routerLink");
-            // i = i.substr(0, i.length - 1)
-          }
-          return i;
-        })
-        .replace(/<\w*code\w*>/g, "<code ng-non-bindable>")
-        .replace(/{/g, "{{ '{' }}");
-
-      this.compileTemplate(this.postHtml);
-      // this.compileTemplate(`<div class="test">TEST</div>`);
-      this.isLoading = false;
-    }, 150);
-  }
-
-  compileTemplate(template) {
-    const metadata: Component = {
-      selector: `runtime-component-sample`,
-      template: template,
-      styles: css.styles,
-    };
-
-    let factory = this.createComponentFactorySync(
-      this.compiler,
-      metadata,
-      null
-    );
-
-    if (this.componentRef) {
-      this.componentRef.destroy();
-      this.componentRef = null;
-    }
-    this.componentRef = this.container.createComponent(factory);
-  }
-
-  private createComponentFactorySync(
-    compiler: Compiler,
-    metadata: Component,
-    componentClass: any
-  ): ComponentFactory<any> {
-    const cmpClass =
-      componentClass ||
-      class RuntimeComponent {
-        name: string = "Denys";
-      };
-    const decoratedCmp = Component(metadata)(cmpClass);
-
-    @NgModule({
-      imports: [CommonModule, RouterModule],
-      declarations: [decoratedCmp]
-    })
-    class RuntimeComponentModule {}
-
-    let module: ModuleWithComponentFactories<
-      any
-    > = compiler.compileModuleAndAllComponentsSync(RuntimeComponentModule);
-    return module.componentFactories.find(
-      f => f.componentType === decoratedCmp
-    );
+    // setTimeout(async () => {
+    // }, 150);
   }
 }

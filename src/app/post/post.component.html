@@ -1,4 +1,7 @@
+<div [@reloading]="isLoading?'hidden':'visible'" class="center content post-content">
+  <section class="post-full-content">
 
-<div [@reloading]="isLoading?'hidden':'visible'" class="center content">
-  <div class="post-full" #container></div>
+    <div class="post-content" [innerHTML]="postHtml | safeHtml"></div>
+  </section>
+
 </div>

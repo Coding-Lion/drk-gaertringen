@@ -1,5 +1,12 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { BrowserModule, DomSanitizer } from "@angular/platform-browser";
+import {
+  NgModule,
+  PLATFORM_ID,
+  APP_ID,
+  Inject,
+  PipeTransform,
+  Pipe
+} from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -8,34 +15,49 @@ import { PostComponent } from "./post/post.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DemoMaterialModule } from "./material-module";
 import { HeaderComponent } from "./header/header.component";
-import { FormsModule } from '@angular/forms';
-import { TagsComponent } from './tags/tags.component';
-import { CommonModule } from '@angular/common';
-import { TagComponent } from './tag/tag.component';
+import { FormsModule } from "@angular/forms";
+import { TagsComponent } from "./tags/tags.component";
+import { CommonModule } from "@angular/common";
+import { TagComponent } from "./tag/tag.component";
+import { HttpClientModule } from '@angular/common/http';
+
+@Pipe({ name: "safeHtml" })
+export class SanitizeHtml implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(style) {
+    return this.sanitizer.bypassSecurityTrustHtml(style);
+    //return this.sanitizer.bypassSecurityTrustStyle(style);
+    // return this.sanitizer.bypassSecurityTrustXxx(style); - see docs
+  }
+}
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      PostComponent,
-      HeaderComponent,
-      TagsComponent,
-      TagComponent
-   ],
-   imports: [
-      FormsModule,
-      BrowserAnimationsModule,
-      BrowserModule,
-      AppRoutingModule,
-      DemoMaterialModule,
-      CommonModule
-   ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    SanitizeHtml,
+    AppComponent,
+    PostComponent,
+    HeaderComponent,
+    TagsComponent,
+    TagComponent
+  ],
+  imports: [
+    FormsModule,
+    BrowserAnimationsModule,
+    BrowserModule.withServerTransition({ appId: "rk-angular" }),
+    AppRoutingModule,
+    DemoMaterialModule,
+    CommonModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string
+  ) {
     console.log(GhostContentAPI);
     ghostApi = new GhostContentAPI({
       url: "https://rkgaertringen.hyperleague.de",
