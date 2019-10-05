@@ -1,0 +1,17 @@
+<header>
+    <img class="feature-image" [src]="tag.feature_image" alt="" srcset="">
+    <h1 class="title">{{tag.name}}</h1>
+</header>
+<div class="center content">
+    <div class="description">{{tag.description}}</div>
+    <div class="cards">
+        <a *ngFor="let post of posts" [routerLink]="'/' + post.slug" class="card">
+            <img [src]="post.feature_image" alt="" srcset="">
+            <div class="text">
+                <h1>{{post.title}}</h1>
+                <div>{{post.meta_description}}</div>
+                
+            </div>
+        </a>
+    </div>
+</div>

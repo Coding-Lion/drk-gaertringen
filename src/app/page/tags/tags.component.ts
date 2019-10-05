@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ghostApi } from '../app.module';
 
 @Component({
   selector: 'app-tags',
@@ -17,7 +16,7 @@ export class TagsComponent implements OnInit {
   constructor() { }
   tags = [];
   async ngOnInit() {
-    this.tags = await ghostApi.tags.browse();
+    // this.tags = await ghostApi.tags.browse();
     console.log(this.tags);
   }
 

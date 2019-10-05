@@ -1,0 +1,17 @@
+<div id="slider-outer">
+  <div id="slider" #slider>
+    
+    <ng-template ngFor let-post [ngForOf]="feturedPosts">
+      <a class="featured" [routerLink]="post.slug">
+        <div class="info">
+          <h1>{{post.title}}</h1>
+          <div>{{post.meta_description}}</div>
+
+        </div>
+        <img [src]="post.feature_image" alt="" srcset="">
+      </a>
+    </ng-template>
+  </div>
+  <button id="slide-left" (click)="scrollLeft()"><i class="material-icons">navigate_before</i></button>
+  <button id="slide-right" (click)="scrollRight()"><i class="material-icons">navigate_next</i></button>
+</div>

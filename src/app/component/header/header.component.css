@@ -1,0 +1,141 @@
+header {
+  height: 56px;
+  height: var(--header-height);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(243, 186, 186, 0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: box-shadow 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+header.top {
+  /* height: 100px; */
+  box-shadow: unset;
+}
+
+#content {
+  height: 100%;
+  padding-right: 32px;
+  padding-left: 32px;
+  max-width: 1000px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  font-size: 22px;
+
+}
+
+
+.logo {
+  
+  display: flex;
+  align-items: center;
+  width: 360px;
+  height: 100%;
+}
+
+.logo img {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: calc(var(--header-height) - (var(--logo-margin) * 2));
+  /* [ngStyle]="{'height.px': headerHeight - (logoMargin * 2) }" */
+
+  transition: all 0.2s ease-in-out;
+}
+
+
+.logo img.top {
+  /* margin-top: 16px; */
+  /* margin-bottom: 16px; */
+  /* height: calc(100% - 32px); */
+
+}
+
+.ov {
+  padding-left: 8px;
+  display: inline-block;
+  font-size: 18px;
+  color: rgba(0,45,85,1);
+  align-self: flex-start;
+  margin-top: calc(var(--logo-margin) / 2);
+  /* font-size: calc((var(--logo-margin) * 1.7) + 2px); */
+
+  transition: all 0.2s ease-in-out;
+}
+
+
+
+.space {
+  flex-grow: 1;
+}
+
+.nav-item {
+  flex-grow: 1;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 18px;
+  white-space: nowrap;
+  /* height: 32px; */
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: rgba(0,45,85,1);
+}
+
+.nav-item:hover {
+
+  color: rgba(0, 117, 169, 1);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media only screen and (max-width: 850px) {
+  .logo {
+    width: initial;
+  }
+  .logo img {
+    height: 32px;
+  }
+  #content {
+    padding-right: 0px;
+    padding-left: 10px;
+  }
+  header {
+    height: 56px;
+  }
+  .ov {
+    margin-top: 6px;
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .nav-item {
+    display: none;
+  }
+  .mobile-nav {
+    display: block;
+    font-size: 26px;
+    height: 56px;
+  }
+  .mobile-nav span {
+    line-height: 56px;
+    display: inline-block;
+    margin-bottom: 32px;
+
+  }
+  .mobile-nav i {
+    font-size: 40px;
+    color: white;
+    padding: 8px;
+    background-color: rgb(0,117,169)
+  }
+}

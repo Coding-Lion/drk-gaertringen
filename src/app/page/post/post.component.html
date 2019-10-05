@@ -1,0 +1,12 @@
+<div class="content post-fulll">
+
+  <figure *ngIf="post.feature_image"  class="post-full-image">
+    <img [src]="post.feature_image" [alt]="post.title">
+  </figure>
+
+  <section class="center post-full-content">
+    <h1 class="post-title">{{post.title}}</h1>
+    <div class="post-content" [innerHTML]="injectStyle(post.html) | safeHtml"></div>
+  </section>
+
+</div>

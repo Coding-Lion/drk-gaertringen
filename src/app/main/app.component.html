@@ -1,0 +1,17 @@
+
+<app-header (menuClicked)="sidenav.toggle()" (closeMenuClicked)="sidenav.close()"></app-header>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+      <ng-template ngFor let-item [ngForOf]="settings.navigation">
+        <a class="nav-item" *ngIf="isSameOrigin.test(item.url)" [routerLink]="item.url" (click)="sidenav.toggle()">{{item.label}}</a>
+        <a class="nav-item" *ngIf="!isSameOrigin.test(item.url)" [href]="item.url" (click)="sidenav.toggle()">{{item.label}}</a>
+      </ng-template>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div [@routeAnimations]="o && o.activatedRouteData 
+      && o.activatedRouteData['animation']" [class.loading]="isLoading" id=main>
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>
