@@ -2,7 +2,9 @@ import { Component } from "@angular/core";
 import { fadeAnimation } from "./route-animation";
 import { Settings, GhostApi } from "../helper/ghostApi";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { IsSameOrigin } from '../helper/isSameOrigin';
+import { IsSameOrigin } from "../helper/isSameOrigin";
+import { isPlatformBrowser } from "@angular/common";
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: "app-root",
@@ -16,7 +18,12 @@ export class AppComponent {
   settings: Settings = { navigation: [] } as any;
   static instance: AppComponent;
 
-  constructor(private ghostApi: GhostApi, private router: Router, public isSameOrigin: IsSameOrigin) {
+  constructor(
+    private ghostApi: GhostApi,
+    private router: Router,
+    public isSameOrigin: IsSameOrigin,
+    private platform: Platform,
+  ) {
     AppComponent.instance = this;
     ghostApi.getSettings().subscribe(settings => (this.settings = settings));
   }
@@ -29,7 +36,9 @@ export class AppComponent {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0);
+      if (isPlatformBrowser(this.platform)) {
+        window.scrollTo(0, 0);
+      }
     });
   }
 }

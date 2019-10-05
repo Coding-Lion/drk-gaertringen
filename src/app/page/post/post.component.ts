@@ -22,8 +22,9 @@ import { css } from "./post-content-css";
 import { makeStateKey, TransferState } from "@angular/platform-browser";
 import { GhostApi, Post } from "src/app/helper/ghostApi";
 import { AppComponent } from 'src/app/main/app.component';
+import { isPlatformBrowser } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
 
-const PAGE_KEY = makeStateKey("page");
 
 @Component({
   selector: "app-post",
@@ -34,7 +35,8 @@ export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ghostApi: GhostApi
+    private ghostApi: GhostApi,
+    private platform: Platform
   ) {}
 
   post: Post = {} as Post;
@@ -65,12 +67,14 @@ export class PostComponent implements OnInit {
 
   loadPage(slug) {
     AppComponent.instance.isLoading = true;
+    let timeout = 150;
+    if (!isPlatformBrowser(this.platform)) timeout = 0;
     setTimeout(() => {
       this.ghostApi.getPage(slug).subscribe((post: any) => {
         this.post = post;
         AppComponent.instance.isLoading = false;
       });
-    }, 150);
+    }, timeout);
   }
 
   injectStyle(html) {

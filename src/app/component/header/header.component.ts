@@ -9,7 +9,9 @@ import {
   Renderer2
 } from "@angular/core";
 import { Settings, GhostApi } from "src/app/helper/ghostApi";
-import { IsSameOrigin } from 'src/app/helper/isSameOrigin';
+import { IsSameOrigin } from "src/app/helper/isSameOrigin";
+import { isPlatformBrowser } from "@angular/common";
+import { Platform } from "@angular/cdk/platform";
 
 @Component({
   selector: "app-header",
@@ -19,7 +21,12 @@ import { IsSameOrigin } from 'src/app/helper/isSameOrigin';
 export class HeaderComponent implements OnInit {
   @Output() menuClicked = new EventEmitter<any>();
   @Output() closeMenuClicked = new EventEmitter<any>();
-  constructor(private renderer: Renderer2, private ghostApi: GhostApi, public isSameOrigin: IsSameOrigin) {}
+  constructor(
+    private renderer: Renderer2,
+    private ghostApi: GhostApi,
+    public isSameOrigin: IsSameOrigin,
+    private platform: Platform
+  ) {}
   @ViewChild("header", { static: true }) header: ElementRef;
   @ViewChild("logo", { static: true }) logo: ElementRef;
 
@@ -60,15 +67,23 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderer.setAttribute(
-      this.header.nativeElement,
-      "style",
-      "--header-height: " +
-        (100 - scrollY) +
-        "px;--logo-margin: " +
-        (16 - 8 * this.topPercent) +
-        "px"
-    );
+    if (isPlatformBrowser(this.platform)) {
+      this.renderer.setAttribute(
+        this.header.nativeElement,
+        "style",
+        "--header-height: " +
+          (100 - scrollY) +
+          "px;--logo-margin: " +
+          (16 - 8 * this.topPercent) +
+          "px"
+      );
+    } else {
+      this.renderer.setAttribute(
+        this.header.nativeElement,
+        "style",
+        "--header-height: " + 100 + "px;--logo-margin: " + 16 + "px"
+      );
+    }
     this.ghostApi
       .getSettings()
       .subscribe(settings => (this.settings = settings));

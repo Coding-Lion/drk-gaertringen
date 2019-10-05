@@ -1,5 +1,5 @@
 <header>
-    <img class="feature-image" [src]="tag.feature_image" alt="" srcset="">
+    <img *ngIf="tag.feature_image" class="feature-image" [src]="tag.feature_image" alt="" srcset="">
     <h1 class="title">{{tag.name}}</h1>
 </header>
 <div class="center content">

@@ -15,16 +15,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    errorHandler: (err) => {
-      console.log(err);
-      //@ts-ignore
-      window.err = err;
-      console.error(err);
-    },
-  })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
-
-

@@ -1,6 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener
+} from "@angular/core";
 import { GhostApi, Post } from "src/app/helper/ghostApi";
 import { AppComponent } from "src/app/main/app.component";
+import { Platform } from "@angular/cdk/platform";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
   selector: "app-welcome",
@@ -11,31 +19,33 @@ export class WelcomeComponent implements OnInit {
   @ViewChild("slider", { static: false })
   slider: ElementRef<HTMLDivElement>;
 
-  constructor(private ghostApi: GhostApi) {}
+  constructor(private ghostApi: GhostApi, private platform: Platform) {}
   feturedPosts: Post[];
   private intervallId;
 
   private currentResizeTimeout;
   @HostListener("window:resize", ["$event"])
   onResize(event) {
-    if (this.currentResizeTimeout != undefined) clearTimeout(this.currentResizeTimeout);
+    if (this.currentResizeTimeout != undefined)
+      clearTimeout(this.currentResizeTimeout);
     this.currentResizeTimeout = setTimeout(() => {
-      this.scrollRight()
-    }, 100)
+      this.scrollRight();
+    }, 100);
   }
 
   ngOnInit() {
     AppComponent.instance.isLoading = true;
     this.ghostApi.getFilteredPages("featured:true").subscribe(posts => {
-      setTimeout(() => {
-        this.feturedPosts = posts;
-        AppComponent.instance.isLoading = false;
+      this.feturedPosts = posts;
+      AppComponent.instance.isLoading = false;
 
+      if (isPlatformBrowser(this.platform)) {
         if (this.intervallId != undefined) clearInterval(this.intervallId);
+
         this.intervallId = setInterval(() => {
           this.scrollRight();
         }, 10000);
-      }, 150);
+      }
     });
   }
 
