@@ -8,8 +8,8 @@ import { Post } from 'src/app/helper/ghostApi';
 })
 export class PostCardsComponent implements OnInit {
 
-  @Input() protected posts: Post[];
-  @Input() protected overlap: boolean = false;
+  @Input() public posts: Post[];
+  @Input() public overlap: boolean = false;
   constructor() { }
 
   ngOnInit() {
