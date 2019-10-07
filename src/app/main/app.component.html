@@ -8,9 +8,8 @@
       </ng-template>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div [@routeAnimations]="o && o.activatedRouteData 
-      && o.activatedRouteData['animation']" [class.loading]="isLoading" id=main>
-      <router-outlet #o="outlet"></router-outlet>
+    <div [class.loading]="isLoading" id=main>
+      <router-outlet></router-outlet>
     </div>
     
   </mat-sidenav-content>

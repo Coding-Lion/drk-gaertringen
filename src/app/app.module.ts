@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GhostApi } from './helper/ghostApi';
 import { IsSameOrigin } from './helper/isSameOrigin';
 import { WelcomeComponent } from './page/welcome/welcome.component';
+import { PostCardsComponent } from './component/post-cards/post-cards.component';
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -42,7 +43,8 @@ export class SanitizeHtml implements PipeTransform {
     HeaderComponent,
     TagsComponent,
     TagComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PostCardsComponent
   ],
   imports: [
     FormsModule,

@@ -2,6 +2,9 @@
 
 #slider-outer {
     position: relative;
+    height: 30vw;
+    max-height: 600px;
+    min-height: 300px;
     
     #slider {
 
@@ -85,5 +88,26 @@
         margin-bottom: auto;
     }
 }
-    
 
+h1 {
+    font-size: 2.3em;
+    margin-bottom: 16px;
+}
+
+.red {
+    background-color: #C2341E;
+    h1, h2 {
+        color: white;
+        font-size: 2.3em;
+        margin-bottom: 16px;
+    }
+}
+
+.center {
+    max-width: 1000px;
+}
+
+.content {
+    padding-top: 64px;
+    padding-bottom: 64px;
+}

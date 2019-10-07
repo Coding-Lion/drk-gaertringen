@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import { enableProdMode } from '@angular/core';
 
 import * as express from 'express';
+import * as compression from 'compression';
 import { join } from 'path';
 (global as any).XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -24,6 +25,8 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/mai
 import { ngExpressEngine } from '@nguniversal/express-engine';
 // Import module map for lazy loading
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
+
+app.use(compression())
 
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModuleNgFactory,

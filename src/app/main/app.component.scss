@@ -3,6 +3,10 @@ mat-sidenav-container {
     margin-top: 100px;
 }
 
+.mat-drawer-content {
+    overflow: initial;
+}
+
 mat-sidenav {
     position: fixed;
     margin-top: 100px;
@@ -11,9 +15,10 @@ mat-sidenav {
 
 
 #main {
-    transition: opacity 0.15s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     opacity: 1;
     min-height: calc(100vh - 100px);
+    background-color: hsla(0,0%,97%,.78);
 }
 
 #main.loading {

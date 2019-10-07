@@ -3,12 +3,15 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  HostListener
+  HostListener,
+  Inject,
+  PLATFORM_ID
 } from "@angular/core";
 import { GhostApi, Post } from "src/app/helper/ghostApi";
 import { AppComponent } from "src/app/main/app.component";
 import { Platform } from "@angular/cdk/platform";
 import { isPlatformBrowser } from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-welcome",
@@ -19,8 +22,11 @@ export class WelcomeComponent implements OnInit {
   @ViewChild("slider", { static: false })
   slider: ElementRef<HTMLDivElement>;
 
-  constructor(private ghostApi: GhostApi, private platform: Platform) {}
+  constructor(@Inject(PLATFORM_ID) private  platformId: Object, private route: ActivatedRoute) {}
   feturedPosts: Post[];
+  hvo: Post[];
+  angebote: Post[];
+  aktivWerden: Post[];
   private intervallId;
 
   private currentResizeTimeout;
@@ -34,19 +40,18 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    AppComponent.instance.isLoading = true;
-    this.ghostApi.getFilteredPages("featured:true").subscribe(posts => {
-      this.feturedPosts = posts;
-      AppComponent.instance.isLoading = false;
-
-      if (isPlatformBrowser(this.platform)) {
-        if (this.intervallId != undefined) clearInterval(this.intervallId);
-
-        this.intervallId = setInterval(() => {
-          this.scrollRight();
-        }, 10000);
-      }
-    });
+    this.route.data.subscribe((data: { data: { featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[] }}) => {
+      this.feturedPosts = data.data.featured;
+      this.angebote = data.data.angebote;
+      this.hvo = data.data.hvo;
+      this.aktivWerden = data.data.aktivWerden;
+    })
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.intervallId != undefined) clearInterval(this.intervallId);
+      this.intervallId = setInterval(() => {
+        this.scrollRight();
+      }, 10000);
+    }
   }
 
   ngOnDestroy(): void {

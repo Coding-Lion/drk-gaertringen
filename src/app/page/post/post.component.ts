@@ -59,22 +59,10 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const slug = this.route.snapshot.params.id;
-      this.loadPage(slug); // reset and set based on new parameter this time
+    this.route.data.subscribe((data: { post: Post }) => {
+      this.post = data.post;
+      console.log(this.post);
     });
-  }
-
-  loadPage(slug) {
-    AppComponent.instance.isLoading = true;
-    let timeout = 150;
-    if (!isPlatformBrowser(this.platform)) timeout = 0;
-    setTimeout(() => {
-      this.ghostApi.getPage(slug).subscribe((post: any) => {
-        this.post = post;
-        AppComponent.instance.isLoading = false;
-      });
-    }, timeout);
   }
 
   injectStyle(html) {

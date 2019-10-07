@@ -1,6 +1,6 @@
 <div id="slider-outer">
   <div id="slider" #slider>
-    
+
     <ng-template ngFor let-post [ngForOf]="feturedPosts">
       <a class="featured" [routerLink]="post.slug">
         <div class="info">
@@ -14,4 +14,22 @@
   </div>
   <button id="slide-left" (click)="scrollLeft()"><i class="material-icons">navigate_before</i></button>
   <button id="slide-right" (click)="scrollRight()"><i class="material-icons">navigate_next</i></button>
+</div>
+<div class="content">
+  <div class="center">
+    <h1 class="center">Herzlich Willkommen beim DRK Ortsverein Gärtringen.</h1>
+    <app-post-cards [posts]="angebote"></app-post-cards>
+  </div>
+</div>
+<div class="red content">
+  <div class="center">
+    <h2>Wir brauchen Dich!</h2>
+    <app-post-cards [posts]="hvo"></app-post-cards>
+  </div>
+</div>
+<div class="content">
+  <div class="center">
+
+    <app-post-cards [posts]="aktivWerden"></app-post-cards>
+  </div>
 </div>

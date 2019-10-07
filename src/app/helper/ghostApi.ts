@@ -29,9 +29,10 @@ export class GhostApi {
     if (this.pages[slug] != undefined) {
       return new Observable(observer => {
         observer.next(this.pages[slug]);
+        observer.complete();
       });
     } else {
-      return this.makeRequest("/posts/slug/" + slug + "/").pipe(
+      return this.makeRequest("/posts/slug/" + slug + "/", ["include=tags"]).pipe(
         map(obj => {
           if (obj.posts && obj.posts.length > 0) {
             this.pages[slug] = obj.posts[0];
@@ -49,6 +50,7 @@ export class GhostApi {
     if (this.tags[tag] != undefined) {
       return new Observable(observer => {
         observer.next(this.tags[tag]);
+        observer.complete();
       });
     } else {
       return this.makeRequest("/tags/slug/" + tag + "/").pipe(
@@ -70,11 +72,13 @@ export class GhostApi {
     if (this.filteredPages[filter] != undefined) {
       return new Observable(observer => {
         observer.next(this.filteredPages[filter]);
+        observer.complete();
       });
     } else {
-      return this.makeRequest("/posts/", ["filter=" + escape(filter)]).pipe(
+      return this.makeRequest("/posts/", ["filter=" + escape(filter), "include=tags"]).pipe(
         map(obj => {
           if (obj.posts && obj.posts.length > 0) {
+            console.log(obj);
             this.filteredPages[filter] = obj.posts;
             this.state.onSerialize(this.TAG_PAGES_KEY, () => this.filteredPages);
             obj.posts.forEach((post) => {
@@ -94,6 +98,7 @@ export class GhostApi {
   getSettings(): Observable<Settings> {
     if (this.settings != undefined) return new Observable(observer => {
       observer.next(this.settings);
+      observer.complete();
     });
     else return this.makeRequest("/settings/").pipe(map(obj => {
       if (obj.settings) {
@@ -138,7 +143,17 @@ export type Post = {
   canonical_url: string,
   page: boolean,
   primary_author: string,
-  primary_tag: string,
+  primary_tag: {
+    id: string,
+    name: string,
+    slug: string,
+    description: string,
+    feature_image: string,
+    visibility: string,
+    meta_title: string,
+    meta_description: string,
+    url: string
+  },
   url: string,
   excerpt: string
 }
