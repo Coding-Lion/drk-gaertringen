@@ -24,9 +24,9 @@ export class WelcomeComponent implements OnInit {
 
   constructor(@Inject(PLATFORM_ID) private  platformId: Object, private route: ActivatedRoute) {}
   feturedPosts: Post[];
-  hvo: Post[];
-  angebote: Post[];
-  aktivWerden: Post[];
+  hvo: Post[] = [];
+  angebote: Post[] = [];
+  aktivWerden: Post[] = [];
   private intervallId;
 
   private currentResizeTimeout;
@@ -42,9 +42,10 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { data: { featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[] }}) => {
       this.feturedPosts = data.data.featured;
-      this.angebote = data.data.angebote;
-      this.hvo = data.data.hvo;
-      this.aktivWerden = data.data.aktivWerden;
+      
+      this.angebote = this.pushThree(data.data.angebote);
+      this.hvo = this.pushThree(data.data.hvo);
+      this.aktivWerden = this.pushThree(data.data.aktivWerden);
     })
     if (isPlatformBrowser(this.platformId)) {
       if (this.intervallId != undefined) clearInterval(this.intervallId);
@@ -56,6 +57,17 @@ export class WelcomeComponent implements OnInit {
 
   ngOnDestroy(): void {
     clearInterval(this.intervallId);
+  }
+
+  private pushThree(source: any[]): any[] {
+    const desination = [];
+    let i = 0;
+    for (const obj of source ) {
+      if (i >= 3) return desination;
+      desination.push(obj);
+      i++;
+    }
+    return desination;
   }
 
   scrollRight() {
