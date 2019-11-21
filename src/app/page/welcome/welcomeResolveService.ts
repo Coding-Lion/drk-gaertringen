@@ -13,7 +13,6 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
     constructor(private ghostApi: GhostApi, private router: Router, @Inject(PLATFORM_ID) private  platformId: Object) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[] }> | Observable<never> {
-        let tag = route.paramMap.get('tag');
 
         // const request = this.ghostApi.getFilteredPages("featured:true");
         const request = zip(
@@ -33,7 +32,7 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
             }
         }))
 
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && AppComponent.previousUrl != undefined) {
             return request.pipe(delay(AppComponent.animationDelay));
         } else {
             return request;

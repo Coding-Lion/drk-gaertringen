@@ -12,6 +12,7 @@ import { Platform } from "@angular/cdk/platform";
 })
 export class AppComponent {
   static animationDelay = 200;
+  static previousUrl: string = undefined;
   title = "rk-angular";
   isLoading = false;
   settings: Settings = { navigation: [] } as any;
@@ -38,9 +39,11 @@ export class AppComponent {
             window.scrollTo(0, 0);
           }
           this.isLoading = false;
+          AppComponent.previousUrl = this.router.url;
           break;
         case NavigationStart:
-          this.isLoading = true;
+          if (AppComponent.previousUrl != undefined)
+            this.isLoading = true;
           break;
         default:
           break;

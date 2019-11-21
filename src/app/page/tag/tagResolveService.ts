@@ -29,7 +29,7 @@ export class TagResolveService implements Resolve<Tag> {
   ): Observable<Tag> | Observable<never> {
     let tag = route.paramMap.get("tag");
     const request = this.ghostApi.getTag(tag);
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && AppComponent.previousUrl != undefined) {
       return request.pipe(delay(AppComponent.animationDelay));
     } else {
       return request;

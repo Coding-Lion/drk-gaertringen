@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { Routes, RouterModule, UrlHandlingStrategy, UrlTree, UrlSerializer } from '@angular/router';
 import { PostComponent } from '../page/post/post.component';
 import { TagsComponent } from '../page/tags/tags.component';
@@ -24,4 +24,6 @@ const routes: Routes = [
   })],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}

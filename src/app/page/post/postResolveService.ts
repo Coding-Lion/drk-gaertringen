@@ -17,7 +17,7 @@ export class PostResolveService implements Resolve<Post> {
         let id = route.paramMap.get('id');
         console.log(id);
         const request = this.ghostApi.getPage(id);
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && AppComponent.previousUrl != undefined) {
             console.log("delay");
             return request.pipe(delay(AppComponent.animationDelay));
         } else {

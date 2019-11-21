@@ -16,7 +16,7 @@ export class TagPostsResolveService implements Resolve<Post[]> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Post[]> | Observable<never> {
         let tag = route.paramMap.get('tag');
         const request = this.ghostApi.getFilteredPages("tag:" + tag);
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && AppComponent.previousUrl != undefined) {
             return request.pipe(delay(AppComponent.animationDelay));
         } else {
             return request;
