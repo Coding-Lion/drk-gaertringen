@@ -22,8 +22,8 @@ export class TagComponent implements OnInit {
     this.route.data.subscribe((data: { posts: Post[], tag: Tag }) => {
       this.posts = data.posts;
       this.tag = data.tag;
-      this.titleService.setTitle(data.tag.meta_title);
-      console.log(this.posts)
+      this.titleService.setTitle(data.tag.meta_title || data.tag.name + " | DRK Gärtringen");
+      console.log(this.tag)
 
 
     });

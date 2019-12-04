@@ -23,6 +23,7 @@ import { GhostApi } from './helper/ghostApi';
 import { IsSameOrigin } from './helper/isSameOrigin';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { PostCardsComponent } from './component/post-cards/post-cards.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -44,7 +45,8 @@ export class SanitizeHtml implements PipeTransform {
     TagsComponent,
     TagComponent,
     WelcomeComponent,
-    PostCardsComponent
+    PostCardsComponent,
+    FooterComponent
   ],
   imports: [
     FormsModule,

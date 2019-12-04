@@ -48,8 +48,9 @@ export class WelcomeComponent implements OnInit {
       this.angebote = this.pushThree(data.data.angebote);
       this.hvo = this.pushThree(data.data.hvo);
       this.aktivWerden = this.pushThree(data.data.aktivWerden);
+      console.log(data.data.settings);
 
-      this.titleService.setTitle(data.data.settings.meta_title);
+      this.titleService.setTitle(data.data.settings.meta_title || data.data.settings.title);
     })
     if (isPlatformBrowser(this.platformId)) {
       if (this.intervallId != undefined) clearInterval(this.intervallId);
@@ -80,7 +81,7 @@ export class WelcomeComponent implements OnInit {
     const numChilds = this.slider.nativeElement.childElementCount;
 
     this.slider.nativeElement.scrollLeft =
-      (scrollLeft + outerWidth) % (outerWidth * numChilds);
+      (scrollLeft + outerWidth * 1.1) % (outerWidth * numChilds);
   }
   scrollLeft() {
     const scrollLeft = this.slider.nativeElement.scrollLeft;

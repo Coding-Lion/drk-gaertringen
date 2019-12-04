@@ -19,11 +19,8 @@ import {
   transition
 } from "@angular/animations";
 import { css } from "./post-content-css";
-import { makeStateKey, TransferState, Title } from "@angular/platform-browser";
+import { makeStateKey, TransferState, Title, Meta } from "@angular/platform-browser";
 import { GhostApi, Post } from "src/app/helper/ghostApi";
-import { AppComponent } from 'src/app/main/app.component';
-import { isPlatformBrowser } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
 
 
 @Component({
@@ -60,7 +57,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { post: Post }) => {
       this.post = data.post;
-      this.titleService.setTitle(data.post.meta_title);
+      this.titleService.setTitle(data.post.meta_title || data.post.title + " | DRK Gärtringen");
       console.log(this.post);
     });
   }
