@@ -5,6 +5,7 @@ import { AppComponent } from 'src/app/main/app.component';
 import { IsSameOrigin } from 'src/app/helper/isSameOrigin';
 import { isPlatformBrowser } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: "app-tag",
@@ -12,14 +13,19 @@ import { Platform } from '@angular/cdk/platform';
   styleUrls: ["./tag.component.scss"]
 })
 export class TagComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private ghostApi: GhostApi, private isSameOrigin: IsSameOrigin, private platform: Platform) {}
+  constructor(private route: ActivatedRoute,
+    private titleService: Title,
+  ) { }
   posts: Post[] = [];
   tag: Tag = {} as any;
   ngOnInit() {
     this.route.data.subscribe((data: { posts: Post[], tag: Tag }) => {
       this.posts = data.posts;
       this.tag = data.tag;
+      this.titleService.setTitle(data.tag.meta_title);
       console.log(this.posts)
+
+
     });
   }
 }

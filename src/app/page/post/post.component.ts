@@ -19,7 +19,7 @@ import {
   transition
 } from "@angular/animations";
 import { css } from "./post-content-css";
-import { makeStateKey, TransferState } from "@angular/platform-browser";
+import { makeStateKey, TransferState, Title } from "@angular/platform-browser";
 import { GhostApi, Post } from "src/app/helper/ghostApi";
 import { AppComponent } from 'src/app/main/app.component';
 import { isPlatformBrowser } from '@angular/common';
@@ -35,8 +35,7 @@ export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ghostApi: GhostApi,
-    private platform: Platform
+    private titleService: Title,
   ) {}
 
   post: Post = {} as Post;
@@ -61,6 +60,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { post: Post }) => {
       this.post = data.post;
+      this.titleService.setTitle(data.post.meta_title);
       console.log(this.post);
     });
   }
