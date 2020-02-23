@@ -7,12 +7,11 @@ import {
   Inject,
   PLATFORM_ID
 } from "@angular/core";
-import { GhostApi, Post, Settings } from "src/app/helper/ghostApi";
-import { AppComponent } from "src/app/main/app.component";
-import { Platform } from "@angular/cdk/platform";
+import { Post, Settings } from "src/app/helper/ghostApi";
 import { isPlatformBrowser } from "@angular/common";
-import { ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import { MetaHelper } from 'src/app/helper/metaHelper';
 
 @Component({
   selector: "app-welcome",
@@ -23,8 +22,12 @@ export class WelcomeComponent implements OnInit {
   @ViewChild("slider", { static: false })
   slider: ElementRef<HTMLDivElement>;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private titleService: Title, private route: ActivatedRoute) { }
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private titleService: Title,
+    private route: ActivatedRoute,
+    private metaHelper: MetaHelper
+  ) {}
   feturedPosts: Post[];
   hvo: Post[] = [];
   angebote: Post[] = [];
@@ -42,16 +45,29 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { data: { featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[], settings: Settings } }) => {
-      this.feturedPosts = data.data.featured;
+    this.route.data.subscribe(
+      (data: {
+        data: {
+          featured: Post[];
+          news: Post[];
+          hvo: Post[];
+          angebote: Post[];
+          aktivWerden: Post[];
+          settings: Settings;
+        };
+      }) => {
+        this.feturedPosts = data.data.featured;
 
-      this.angebote = this.pushThree(data.data.angebote);
-      this.hvo = this.pushThree(data.data.hvo);
-      this.aktivWerden = this.pushThree(data.data.aktivWerden);
-      console.log(data.data.settings);
+        this.angebote = this.pushThree(data.data.angebote);
+        this.hvo = this.pushThree(data.data.hvo);
+        this.aktivWerden = this.pushThree(data.data.aktivWerden);
 
-      this.titleService.setTitle(data.data.settings.meta_title || data.data.settings.title);
-    })
+        this.titleService.setTitle(
+          data.data.settings.meta_title || data.data.settings.title
+        );
+        this.metaHelper.updateMainMeta(data.data.settings)
+      }
+    );
     if (isPlatformBrowser(this.platformId)) {
       if (this.intervallId != undefined) clearInterval(this.intervallId);
       this.intervallId = setInterval(() => {

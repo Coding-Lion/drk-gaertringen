@@ -6,6 +6,7 @@ import { IsSameOrigin } from 'src/app/helper/isSameOrigin';
 import { isPlatformBrowser } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { Title } from '@angular/platform-browser';
+import { MetaHelper } from 'src/app/helper/metaHelper';
 
 @Component({
   selector: "app-tag",
@@ -15,6 +16,7 @@ import { Title } from '@angular/platform-browser';
 export class TagComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private titleService: Title,
+    private metaHelper: MetaHelper,
   ) { }
   posts: Post[] = [];
   tag: Tag = {} as any;
@@ -23,7 +25,7 @@ export class TagComponent implements OnInit {
       this.posts = data.posts;
       this.tag = data.tag;
       this.titleService.setTitle(data.tag.meta_title || data.tag.name + " | DRK Gärtringen");
-      console.log(this.tag)
+      this.metaHelper.updateTagMeta(data.tag)
 
 
     });

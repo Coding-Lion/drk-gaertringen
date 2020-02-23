@@ -24,6 +24,10 @@ import { IsSameOrigin } from './helper/isSameOrigin';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { PostCardsComponent } from './component/post-cards/post-cards.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { MetaHelper } from './helper/metaHelper';
+import { LinkService } from './helper/linkService';
+import { ScriptService } from './helper/scriptService';
+import { NotFoundComponent } from './page/not-found/not-found.component';
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -46,7 +50,8 @@ export class SanitizeHtml implements PipeTransform {
     TagComponent,
     WelcomeComponent,
     PostCardsComponent,
-    FooterComponent
+    FooterComponent,
+    NotFoundComponent
   ],
   imports: [
     FormsModule,
@@ -60,7 +65,10 @@ export class SanitizeHtml implements PipeTransform {
   ],
   providers: [
     GhostApi,
-    IsSameOrigin
+    IsSameOrigin,
+    MetaHelper,
+    LinkService,
+    ScriptService
   ],
   bootstrap: [AppComponent]
 })

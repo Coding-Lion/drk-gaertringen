@@ -8,13 +8,15 @@ import { PostResolveService } from '../page/post/postResolveService';
 import { TagPostsResolveService } from '../page/tag/tagPostsResolveService';
 import { TagResolveService } from '../page/tag/tagResolveService';
 import { WelcomeResolveService } from '../page/welcome/welcomeResolveService';
+import { NotFoundComponent } from '../page/not-found/not-found.component';
 
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, resolve: { data: WelcomeResolveService } },
   { path: 'tag/:tag', component: TagComponent, resolve: { posts: TagPostsResolveService, tag: TagResolveService } },
   { path: 'tag', component: TagsComponent},
-  { path: ':id', component: PostComponent, resolve: { post: PostResolveService } }
+  { path: ':id', component: PostComponent, resolve: { data: PostResolveService } },
+  { path: '**', component: NotFoundComponent }
 ];
 
 

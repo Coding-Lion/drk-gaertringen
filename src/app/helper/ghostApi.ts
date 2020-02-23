@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { TransferState, makeStateKey } from "@angular/platform-browser";
 
 @Injectable()
 export class GhostApi {
-  readonly host = "https://rkgaertringen.hyperleague.de/ghost/api/v2/content";
+  readonly host = "https://drk-gaertringen.hyperleague.de/ghost/api/v2/content";
   readonly token = "400063becdc8344b52789110a5";
   pages: { [slug: string]: Post } = {};
   filteredPages: { [filter: string]: Post[] } = {};
@@ -32,16 +32,23 @@ export class GhostApi {
         observer.complete();
       });
     } else {
-      return this.makeRequest("/posts/slug/" + slug + "/", ["include=tags"]).pipe(
+      return this.makeRequest("/posts/slug/" + slug + "/", ["include=tags,authors",]).pipe(
+        catchError((err) => {
+          return this.makeRequest("/pages/slug/" + slug + "/", ["include=tags,authors"]);
+        }),
         map(obj => {
           if (obj.posts && obj.posts.length > 0) {
             this.pages[slug] = obj.posts[0];
             this.state.onSerialize(this.PAGE_KEY, () => this.pages);
             return obj.posts[0];
+          } else if (obj.pages && obj.pages.length > 0) {
+            this.pages[slug] = obj.pages[0];
+            this.state.onSerialize(this.PAGE_KEY, () => this.pages);
+            return obj.pages[0];
           } else {
             return undefined;
           }
-        })
+        }),
       );
     }
   }
@@ -142,7 +149,6 @@ export type Post = {
   custom_template: string,
   canonical_url: string,
   page: boolean,
-  primary_author: string,
   primary_tag: {
     id: string,
     name: string,
@@ -153,6 +159,21 @@ export type Post = {
     meta_title: string,
     meta_description: string,
     url: string
+  },
+  primary_author: {
+    id: string,
+    name: string,
+    slug: string,
+    profile_image: string,
+    cover_image: string,
+    bio: string,
+    website: string,
+    location: string,
+    facebook: string,
+    twitter: string,
+    meta_title: string,
+    meta_description: string,
+    url: string,
   },
   url: string,
   excerpt: string

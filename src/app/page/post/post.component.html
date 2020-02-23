@@ -1,12 +1,13 @@
-<div class="content post-fulll">
+<article class="content post-full" [class.no-image]="!post.feature_image">
 
   <figure *ngIf="post.feature_image"  class="post-full-image">
     <img [src]="post.feature_image" [alt]="post.title">
   </figure>
 
-  <section class="center post-full-content">
-    <h1 class="post-title">{{post.title}}</h1>
+  <section class="post-full-content">
+    <a *ngIf="post.primary_tag" class="post-tag" [routerLink]="'/tag/' + post.primary_tag.slug">{{post.primary_tag.name}}</a>
+    <h1 class="post-full-title">{{post.title}}</h1>
     <div class="post-content" [innerHTML]="injectStyle(post.html) | safeHtml"></div>
   </section>
 
-</div>
+</article>

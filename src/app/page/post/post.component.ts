@@ -11,16 +11,10 @@ import {
   ElementRef
 } from "@angular/core";
 import { ActivatedRoute, RouterModule, Router } from "@angular/router";
-import {
-  trigger,
-  state,
-  animate,
-  style,
-  transition
-} from "@angular/animations";
 import { css } from "./post-content-css";
-import { makeStateKey, TransferState, Title, Meta } from "@angular/platform-browser";
-import { GhostApi, Post } from "src/app/helper/ghostApi";
+import { Title } from "@angular/platform-browser";
+import { Post, Settings } from "src/app/helper/ghostApi";
+import { MetaHelper } from 'src/app/helper/metaHelper';
 
 
 @Component({
@@ -33,6 +27,7 @@ export class PostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private titleService: Title,
+    private metaHelper: MetaHelper,
   ) {}
 
   post: Post = {} as Post;
@@ -55,10 +50,11 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { post: Post }) => {
-      this.post = data.post;
-      this.titleService.setTitle(data.post.meta_title || data.post.title + " | DRK Gärtringen");
-      console.log(this.post);
+    this.route.data.subscribe((data: { data: { page: Post, settings: Settings }}) => {
+      console.log(data.data.settings);
+      this.post = data.data.page;
+      this.titleService.setTitle(data.data.page.meta_title || data.data.page.title + " | DRK Gärtringen");
+      this.metaHelper.updatePageMeta(data.data.page, data.data.settings);
     });
   }
 
