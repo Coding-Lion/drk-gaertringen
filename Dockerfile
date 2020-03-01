@@ -1,13 +1,14 @@
 FROM node:lts
-WORKDIR /usr/src/app
+WORKDIR /home/node
 USER node
 COPY . .
 RUN npm i
 
 
 FROM node:lts-slim
-WORKDIR /usr/src/app
-COPY --from=0 /usr/src/app/dist .
+WORKDIR /home/node
+COPY --from=0 /home/node/dist .
 EXPOSE 4000
 USER node
+ENV NODE_ENV=production
 CMD [ "node", "server.js" ]
