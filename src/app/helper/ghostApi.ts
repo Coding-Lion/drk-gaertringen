@@ -82,10 +82,9 @@ export class GhostApi {
         observer.complete();
       });
     } else {
-      return this.makeRequest("/posts/", ["filter=" + escape(filter), "include=tags"]).pipe(
+      return this.makeRequest("/posts/", ["filter=" + escape(filter), "include=tags,authors"]).pipe(
         map(obj => {
           if (obj.posts && obj.posts.length > 0) {
-            console.log(obj);
             this.filteredPages[filter] = obj.posts;
             this.state.onSerialize(this.TAG_PAGES_KEY, () => this.filteredPages);
             obj.posts.forEach((post) => {

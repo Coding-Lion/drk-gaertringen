@@ -8,8 +8,8 @@ import {
   Pipe
 } from "@angular/core";
 
-import { AppRoutingModule } from "./main/app-routing.module";
-import { AppComponent } from "./main/app.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
 import { PostComponent } from "./page/post/post.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DemoMaterialModule } from "./material-module";
@@ -56,7 +56,7 @@ export class SanitizeHtml implements PipeTransform {
   imports: [
     FormsModule,
     BrowserAnimationsModule,
-    BrowserModule.withServerTransition({ appId: "drk-angular" }),
+    BrowserModule.withServerTransition({ appId: 'drk-angular' }),
     BrowserTransferStateModule,
     AppRoutingModule,
     DemoMaterialModule,
@@ -77,6 +77,5 @@ export class AppModule {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(APP_ID) private appId: string
   ) {
-
   }
 }

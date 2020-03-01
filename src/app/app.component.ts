@@ -1,7 +1,7 @@
 import { Component, Inject, PLATFORM_ID } from "@angular/core";
-import { Settings, GhostApi } from "../helper/ghostApi";
+import { Settings, GhostApi } from "./helper/ghostApi";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { IsSameOrigin } from "../helper/isSameOrigin";
+import { IsSameOrigin } from "./helper/isSameOrigin";
 import { isPlatformBrowser } from "@angular/common";
 import { Platform } from "@angular/cdk/platform";
 import { Title } from '@angular/platform-browser';

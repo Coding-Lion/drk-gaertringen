@@ -1,10 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { GhostApi, Tag, Post } from 'src/app/helper/ghostApi';
-import { AppComponent } from 'src/app/main/app.component';
-import { IsSameOrigin } from 'src/app/helper/isSameOrigin';
-import { isPlatformBrowser } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
+import { Tag, Post } from 'src/app/helper/ghostApi';
 import { Title } from '@angular/platform-browser';
 import { MetaHelper } from 'src/app/helper/metaHelper';
 

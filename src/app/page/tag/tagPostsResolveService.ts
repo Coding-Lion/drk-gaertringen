@@ -3,9 +3,8 @@ import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@a
 import { Post, GhostApi, Tag } from 'src/app/helper/ghostApi';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { isPlatformBrowser, isPlatformServer, isPlatformWorkerApp, isPlatformWorkerUi } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
-import { AppComponent } from 'src/app/main/app.component';
+import { isPlatformBrowser } from '@angular/common';
+import { AppComponent } from 'src/app/app.component';
 
 @Injectable({
     providedIn: 'root',

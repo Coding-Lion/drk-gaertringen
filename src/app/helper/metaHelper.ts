@@ -15,12 +15,12 @@ export class MetaHelper {
         this.meta.updateTag({ property: "og:type", content: "website" });
         this.meta.updateTag({ property: "og:title", content: data.meta_title });
         this.meta.updateTag({ property: "og:description", content: data.meta_description });
-        this.meta.updateTag({ property: "og:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ property: "og:url", content: data.url });
         this.meta.updateTag({ property: "og:image", content: data.cover_image });
         this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" });
         this.meta.updateTag({ name: "twitter:title", content: data.meta_title });
         this.meta.updateTag({ name: "twitter:description", content: data.meta_description });
-        this.meta.updateTag({ name: "twitter:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ name: "twitter:url", content: data.url });
         this.meta.updateTag({ name: "twitter:image", content: data.cover_image });
         this.meta.updateTag({ property: "article:publisher", content: data.facebook });
 
@@ -42,12 +42,12 @@ export class MetaHelper {
         this.meta.updateTag({ property: "og:type", content: "website" });
         this.meta.updateTag({ property: "og:title", content: data.meta_title });
         this.meta.updateTag({ property: "og:description", content: data.meta_description });
-        this.meta.updateTag({ property: "og:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ property: "og:url", content: data.url });
         this.meta.updateTag({ property: "og:image", content: data.feature_image });
         this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" });
         this.meta.updateTag({ name: "twitter:title", content: data.meta_title });
         this.meta.updateTag({ name: "twitter:description", content: data.meta_description });
-        this.meta.updateTag({ name: "twitter:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ name: "twitter:url", content: data.url });
         this.meta.updateTag({ name: "twitter:image", content: data.feature_image });
         try {
             this.script.removeTag("type='application/ld+json'");
@@ -67,14 +67,14 @@ export class MetaHelper {
         this.meta.updateTag({ property: "og:type", content: "article" });
         this.meta.updateTag({ property: "og:title", content: data.meta_title || data.title });
         this.meta.updateTag({ property: "og:description", content: data.custom_excerpt || data.excerpt });
-        this.meta.updateTag({ property: "og:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ property: "og:url", content: data.url });
         this.meta.updateTag({ property: "article:published_time", content: data.published_at });
         this.meta.updateTag({ property: "article:modified_time", content: data.updated_at });
         this.meta.updateTag({ property: "article:tag", content: data.title });
         this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" });
         this.meta.updateTag({ name: "twitter:title", content: data.twitter_title || data.meta_title || data.title });
         this.meta.updateTag({ name: "twitter:description", content: data.twitter_description || data.custom_excerpt || data.excerpt });
-        this.meta.updateTag({ name: "twitter:url", content: window != undefined ? window.location.href : data.url });
+        this.meta.updateTag({ name: "twitter:url", content: data.url });
         this.meta.updateTag({ name: "twitter:image", content: data.feature_image });
         try {
             this.script.removeTag("type='application/ld+json'");

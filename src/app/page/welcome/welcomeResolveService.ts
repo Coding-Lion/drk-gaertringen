@@ -4,7 +4,7 @@ import { Post, GhostApi, Settings } from 'src/app/helper/ghostApi';
 import { Observable, zip } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { AppComponent } from 'src/app/main/app.component';
+import { AppComponent } from 'src/app/app.component';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +22,6 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
             this.ghostApi.getFilteredPages("tag:aktiv-werden"),
             this.ghostApi.getSettings(),
         ).pipe(map((obj) => {
-            console.log(obj)
             return {
                 featured: obj[0],
                 news: obj[1],

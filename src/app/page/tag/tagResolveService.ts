@@ -11,7 +11,7 @@ import { delay } from "rxjs/operators";
 import {
   isPlatformBrowser,
 } from "@angular/common";
-import { AppComponent } from "src/app/main/app.component";
+import { AppComponent } from "src/app/app.component";
 
 @Injectable({
   providedIn: "root"

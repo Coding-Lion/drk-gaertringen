@@ -51,7 +51,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe((data: { data: { page: Post, settings: Settings }}) => {
-      console.log(data.data.settings);
       this.post = data.data.page;
       this.titleService.setTitle(data.data.page.meta_title || data.data.page.title + " | DRK Gärtringen");
       this.metaHelper.updatePageMeta(data.data.page, data.data.settings);
