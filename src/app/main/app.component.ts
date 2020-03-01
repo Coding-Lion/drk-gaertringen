@@ -14,7 +14,7 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent {
   static animationDelay = 200;
   static previousUrl: string = undefined;
-  title = "rk-angular";
+  title = "drk-angular";
   isLoading = false;
   settings: Settings = { navigation: [] } as any;
   static instance: AppComponent;
