@@ -56,7 +56,7 @@ export class SanitizeHtml implements PipeTransform {
   imports: [
     FormsModule,
     BrowserAnimationsModule,
-    BrowserModule.withServerTransition({ appId: "rk-angular" }),
+    BrowserModule.withServerTransition({ appId: "drk-angular" }),
     BrowserTransferStateModule,
     AppRoutingModule,
     DemoMaterialModule,
