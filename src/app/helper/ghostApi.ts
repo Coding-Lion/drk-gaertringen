@@ -7,7 +7,7 @@ import { TransferState, makeStateKey } from "@angular/platform-browser";
 @Injectable()
 export class GhostApi {
   readonly host = "https://staging.drk-gaertringen.de/ghost/api/v2/content";
-  readonly token = "400063becdc8344b52789110a5";
+  readonly token = "e3e56e9e81993d9825bf4e3b84";
   pages: { [slug: string]: Post } = {};
   filteredPages: { [filter: string]: Post[] } = {};
   tags: { [tag: string]: Tag} = {};
