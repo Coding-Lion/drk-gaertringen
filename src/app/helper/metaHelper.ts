@@ -13,12 +13,12 @@ export class MetaHelper {
     updateMainMeta(data: Settings) {
         this.meta.updateTag({ name: "description", content: data.meta_description });
         this.meta.updateTag({ property: "og:type", content: "website" });
-        this.meta.updateTag({ property: "og:title", content: data.meta_title });
+        this.meta.updateTag({ property: "og:title", content: data.meta_title || data.title });
         this.meta.updateTag({ property: "og:description", content: data.meta_description });
         this.meta.updateTag({ property: "og:url", content: data.url });
         this.meta.updateTag({ property: "og:image", content: data.cover_image });
         this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" });
-        this.meta.updateTag({ name: "twitter:title", content: data.meta_title });
+        this.meta.updateTag({ name: "twitter:title", content: data.meta_title || data.title });
         this.meta.updateTag({ name: "twitter:description", content: data.meta_description });
         this.meta.updateTag({ name: "twitter:url", content: data.url });
         this.meta.updateTag({ name: "twitter:image", content: data.cover_image });
