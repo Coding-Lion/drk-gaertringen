@@ -17,6 +17,14 @@ footer {
             margin-bottom: 16px;
             margin-left: 16px;
             margin-right: 16px;
+
+            a {
+                @media (max-width: 700px) {
+                    line-height: 48px;
+                    height: 48px;
+                    display: inline-block;
+                }
+            }
         }
 
         .head {
