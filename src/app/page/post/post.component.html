@@ -1,7 +1,7 @@
 <article class="content post-full" [class.no-image]="!post.feature_image">
 
   <figure *ngIf="post.feature_image"  class="post-full-image">
-    <img [src]="post.feature_image" [alt]="post.title">
+    <img [src]="post.feature_image" [alt]="post.title" srcset="{{post.feature_image | ghostSrcsetPipe}}">
   </figure>
 
   <section class="post-full-content">

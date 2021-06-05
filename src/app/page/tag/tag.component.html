@@ -1,5 +1,5 @@
 <header>
-    <img *ngIf="tag.feature_image" class="feature-image" [src]="tag.feature_image" alt="" srcset="">
+    <img *ngIf="tag.feature_image" class="feature-image" [src]="tag.feature_image" alt="" srcset="{{tag.feature_image | ghostSrcsetPipe}}">
     <div class="site-header-content">
         <h1 class="site-title">{{tag.name}}</h1>
         <div class="site-description">{{tag.description}}</div>

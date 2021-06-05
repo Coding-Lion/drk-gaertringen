@@ -8,7 +8,7 @@
           <div>{{post.meta_description}}</div>
 
         </div>
-        <img [src]="post.feature_image" alt="" srcset="">
+        <img [src]="post.feature_image" alt="" srcset="" srcset="{{post.feature_image | ghostSrcsetPipe}}">
       </a>
     </ng-template>
   </div>

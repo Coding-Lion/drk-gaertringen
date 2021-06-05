@@ -9,8 +9,8 @@ export class GhostApi {
   readonly host = "https://staging.drk-gaertringen.de/ghost/api/v2/content";
   readonly token = "e3e56e9e81993d9825bf4e3b84";
   pages: { [slug: string]: Post } = {};
-  filteredPages: { [filter: string]: Post[] } = {};
   tags: { [tag: string]: Tag} = {};
+  filteredPages: { [filter: string]: Post[] } = {};
   settings: Settings;
 
   readonly PAGE_KEY = makeStateKey("pages");
@@ -19,10 +19,10 @@ export class GhostApi {
   readonly SETTINGS_KEY = makeStateKey("settings");
 
   constructor(private http: HttpClient, private state: TransferState) {
-    this.pages = this.state.get(this.PAGE_KEY, {});
-    this.tags = this.state.get(this.SETTINGS_KEY, {});
-    this.filteredPages = this.state.get(this.TAG_PAGES_KEY, {});
-    this.settings = this.state.get(this.SETTINGS_KEY, undefined);
+    this.pages = this.state.get<{ [slug: string]: Post }>(this.PAGE_KEY, {});
+    this.tags = this.state.get<{ [tag: string]: Tag}>(this.SETTINGS_KEY, {});
+    this.filteredPages = this.state.get<{ [filter: string]: Post[] }>(this.TAG_PAGES_KEY, {});
+    this.settings = this.state.get<Settings>(this.SETTINGS_KEY, undefined);
   }
 
   getPage(slug: string): Observable<Post> {

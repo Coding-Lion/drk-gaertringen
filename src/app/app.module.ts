@@ -28,6 +28,7 @@ import { MetaHelper } from './helper/metaHelper';
 import { LinkService } from './helper/linkService';
 import { ScriptService } from './helper/scriptService';
 import { NotFoundComponent } from './page/not-found/not-found.component';
+import { GhostSrcsetPipePipe } from './helper/ghostSrcsetPipe.pipe';
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -51,7 +52,8 @@ export class SanitizeHtml implements PipeTransform {
     WelcomeComponent,
     PostCardsComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    GhostSrcsetPipePipe
   ],
   imports: [
     FormsModule,
