@@ -7,7 +7,7 @@
   <section class="post-full-content">
     <a *ngIf="post.primary_tag" class="post-tag" [routerLink]="'/tag/' + post.primary_tag.slug">{{post.primary_tag.name}}</a>
     <h1 class="post-full-title">{{post.title}}</h1>
-    <div class="post-content" [innerHTML]="injectStyle(post.html) | safeHtml"></div>
+    <div class="post-content" [innerHTML]="post.html | safeHtml"></div>
   </section>
 
 </article>

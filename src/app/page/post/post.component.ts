@@ -11,7 +11,6 @@ import {
   ElementRef
 } from "@angular/core";
 import { ActivatedRoute, RouterModule, Router } from "@angular/router";
-import { css } from "./post-content-css";
 import { Title } from "@angular/platform-browser";
 import { Post, Settings } from "src/app/helper/ghostApi";
 import { MetaHelper } from 'src/app/helper/metaHelper';
@@ -55,9 +54,5 @@ export class PostComponent implements OnInit {
       this.titleService.setTitle(data.data.page.meta_title || data.data.page.title + " | DRK Gärtringen");
       this.metaHelper.updatePageMeta(data.data.page, data.data.settings);
     });
-  }
-
-  injectStyle(html) {
-    return "<style>" + css.styles[0] + "</style>" + html;
   }
 }
