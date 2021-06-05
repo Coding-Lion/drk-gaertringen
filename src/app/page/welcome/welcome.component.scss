@@ -1,28 +1,26 @@
-
-
 #slider-outer {
     position: relative;
     height: 30vw;
     max-height: 600px;
     min-height: 300px;
-    
+
     #slider {
 
         /* line them up horizontally */
         display: flex;
-    
+
         /* allow for scrolling */
         overflow-x: auto;
         overflow-y: hidden;
-    
+
         /* make it smooth on iOS */
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
         scroll-behavior: smooth;
 
-        & > * {
-        
+        &>* {
+
             position: relative;
             scroll-snap-align: center;
             scroll-snap-stop: always;
@@ -34,15 +32,15 @@
             min-height: 300px;
 
             .info {
-                background-color: rgba(255,255,255,0.9);
+                background-color: rgba(255, 255, 255, 0.9);
                 left: 5%;
                 bottom: 5%;
                 max-width: 400px;
                 padding: 8px;
-                color: rgba(0,45,85,1);
+                color: rgba(0, 45, 85, 1);
                 position: absolute;
 
-                @media (max-width: 599px) { 
+                @media (max-width: 599px) {
                     bottom: 0;
                     right: 0;
                     left: 0;
@@ -68,25 +66,35 @@
         &::-webkit-scrollbar {
             display: none;
         }
-        
+
     }
-        #slide-left {
-            position: absolute;
-            left: 16px;
-            top: 0;
-            bottom: 0;
-            height: 40px;
-            margin-top: auto;
-            margin-bottom: auto;
-        }
-        #slide-right {
-            position: absolute;
-            right: 16px;
-            top: 0px;
-            bottom: 0px;
-            height: 40px;
-            margin-top: auto;
+
+    #slide-left {
+        position: absolute;
+        left: 16px;
+        top: 0;
+        bottom: 0;
+        height: 40px;
+        margin-top: auto;
         margin-bottom: auto;
+
+        @media (max-width: 599px) {
+            display: none;
+        }
+    }
+
+    #slide-right {
+        position: absolute;
+        right: 16px;
+        top: 0px;
+        bottom: 0px;
+        height: 40px;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        @media (max-width: 599px) {
+            display: none;
+        }
     }
 }
 
@@ -98,7 +106,9 @@ h1 {
 
 .red {
     background-color: #C2341E;
-    h1, h2 {
+
+    h1,
+    h2 {
         color: white;
         font-size: 2.3em;
         margin-bottom: 16px;
