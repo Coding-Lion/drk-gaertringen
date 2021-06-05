@@ -39,9 +39,7 @@ export class GhostApi {
         map(obj => {
           if (obj.posts && obj.posts.length > 0) {
             this.pages[slug] = obj.posts[0];
-            console.log(this.pages[slug].html);
             this.pages[slug].html = this.pages[slug].html.replace(/src="(\/content\/images\/\d+\/\d+\/[A-Za-z0-9.\-_]+.(jpeg|jpg|png))"/g, (match, p1) => {
-              console.log( match);
               const sizes = [300, 600, 1000, 2000];
               return match + ' srcset="' + sizes.map(size => `${p1.replace('/content/images/', `/content/images/size/w${size}/`)} ${size}w`).join(', ') + '"';
             })
