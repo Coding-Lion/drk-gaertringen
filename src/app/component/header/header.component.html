@@ -19,7 +19,7 @@
       <a class="nav-item" *ngIf="isSameOrigin.test(item.url)" [routerLink]="item.url">{{item.label}}</a>
       <a class="nav-item" *ngIf="!isSameOrigin.test(item.url)" [href]="item.url">{{item.label}}</a>
     </ng-template>
-    <div class="space"></div>
+    <!-- <div class="space"></div> -->
     <button (click)="menuClick()" class="mobile-nav">
       <i class="material-icons">menu</i>
     </button>

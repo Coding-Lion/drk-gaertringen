@@ -12,6 +12,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { MetaHelper } from 'src/app/helper/metaHelper';
+import { WelcomeResolveServiceData } from "./welcomeResolveService";
 
 @Component({
   selector: "app-welcome",
@@ -32,6 +33,12 @@ export class WelcomeComponent implements OnInit {
   hvo: Post[] = [];
   angebote: Post[] = [];
   aktivWerden: Post[] = [];
+  news: Post[] = [];
+  
+  blutspende: Post;
+  ehKurs: Post;
+  sandienst: Post;
+  
   private intervallId;
 
   private currentResizeTimeout;
@@ -47,20 +54,28 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(
       (data: {
-        data: {
-          featured: Post[];
-          news: Post[];
-          hvo: Post[];
-          angebote: Post[];
-          aktivWerden: Post[];
-          settings: Settings;
-        };
+        data: WelcomeResolveServiceData;
       }) => {
         this.feturedPosts = data.data.featured;
 
         this.angebote = this.pushThree(data.data.angebote);
         this.hvo = this.pushThree(data.data.hvo);
         this.aktivWerden = this.pushThree(data.data.aktivWerden);
+        this.news = data.data.news.slice(0,4);
+
+        for (const post of data.data.welcome) {
+          switch (post.slug) {
+            case "rotkreuzkurs-erste-hilfe":
+              this.ehKurs = post;
+              break;
+            case "blutspende":
+              this.blutspende = post;
+              break;
+            case "sanitatsdienste":
+              this.sandienst = post;
+              break;
+          }
+        }
 
         this.titleService.setTitle(
           data.data.settings.meta_title || data.data.settings.title
@@ -88,7 +103,7 @@ export class WelcomeComponent implements OnInit {
       desination.push(obj);
       i++;
     }
-    return desination;
+    return source.slice(0,3);
   }
 
   scrollRight() {

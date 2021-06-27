@@ -29,6 +29,7 @@ import { LinkService } from './helper/linkService';
 import { ScriptService } from './helper/scriptService';
 import { NotFoundComponent } from './page/not-found/not-found.component';
 import { GhostSrcsetPipePipe } from './helper/ghostSrcsetPipe.pipe';
+import { DateFormatPipePipe } from './helper/date-format-pipe.pipe';
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -53,7 +54,8 @@ export class SanitizeHtml implements PipeTransform {
     PostCardsComponent,
     FooterComponent,
     NotFoundComponent,
-    GhostSrcsetPipePipe
+    GhostSrcsetPipePipe,
+    DateFormatPipePipe
   ],
   imports: [
     FormsModule,

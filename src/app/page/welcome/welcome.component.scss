@@ -1,6 +1,6 @@
 #slider-outer {
     position: relative;
-    height: 30vw;
+    height: 20vw;
     max-height: 600px;
     min-height: 300px;
 
@@ -27,7 +27,7 @@
             /* make sure the width is honored */
             flex-shrink: 0;
             width: 100%;
-            height: 30vw;
+            height: 20vw;
             max-height: 600px;
             min-height: 300px;
 
@@ -49,9 +49,8 @@
                     text-align: center;
                 }
 
-                h1 {
+                h2 {
                     font-size: 22px;
-                    margin-bottom: 8px;
                 }
             }
 
@@ -100,12 +99,46 @@
 
 h1 {
     font-size: 2.5em;
+    margin-top: 32px;
     margin-bottom: 16px;
     margin-left: 8px;
+    text-align: center;
+}
+
+#subtitle {
+    text-align: center;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 48px;
+}
+
+#main-offers {
+    .post-card-image {
+        height: 320px;
+    }
+    .post-card-content {
+        text-align: center;
+        position: absolute;
+        border-radius: 2px;
+        top: 50%;
+        right: 0;
+        left: 0;
+        z-index: 11;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 8px;
+        margin: 0 8px 0 8px;
+        transform: translate(0, -50%);
+        width: fit-content;
+    }
+}
+
+.center {
+    max-width: 1600px;
 }
 
 .red {
-    background-color: #C2341E;
+    background-color: #e60005;
 
     h1,
     h2 {
@@ -116,11 +149,7 @@ h1 {
     }
 }
 
-.center {
-    max-width: 1000px;
-}
 
 .content {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px;
 }

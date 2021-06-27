@@ -9,10 +9,10 @@ import { AppComponent } from 'src/app/app.component';
 @Injectable({
     providedIn: 'root',
 })
-export class WelcomeResolveService implements Resolve<{ featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[], settings: Settings }> {
+export class WelcomeResolveService implements Resolve<WelcomeResolveServiceData> {
     constructor(private ghostApi: GhostApi, private router: Router, @Inject(PLATFORM_ID) private  platformId: Object) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ featured: Post[], news: Post[], hvo: Post[], angebote: Post[], aktivWerden: Post[], settings: Settings }> | Observable<never> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WelcomeResolveServiceData> | Observable<never> {
 
         const request = zip(
             this.ghostApi.getFilteredPages("featured:true"),
@@ -20,6 +20,7 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
             this.ghostApi.getFilteredPages("tag:helfer-vor-ort"),
             this.ghostApi.getFilteredPages("tag:angebote"),
             this.ghostApi.getFilteredPages("tag:aktiv-werden"),
+            this.ghostApi.getFilteredPages("tag:hash-welcome"),
             this.ghostApi.getSettings(),
         ).pipe(map((obj) => {
             return {
@@ -28,7 +29,8 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
                 hvo: obj[2],
                 angebote: obj[3],
                 aktivWerden: obj[4],
-                settings: obj[5],
+                welcome: obj[5],
+                settings: obj[6],
             }
         }))
 
@@ -39,3 +41,5 @@ export class WelcomeResolveService implements Resolve<{ featured: Post[], news: 
         }
     }
 }
+
+export type WelcomeResolveServiceData = { featured: Post[], news: Post[], hvo: Post[], angebote: Post[], welcome: Post[], aktivWerden: Post[], settings: Settings };

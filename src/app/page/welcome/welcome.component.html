@@ -1,35 +1,63 @@
-<div id="slider-outer">
+<div id="slider-outer" class="center">
   <div id="slider" #slider>
-
     <ng-template ngFor let-post [ngForOf]="feturedPosts">
       <a class="featured" [routerLink]="post.slug">
         <div class="info">
-          <h1>{{post.title}}</h1>
-          <div>{{post.meta_description}}</div>
-
+          <h2>{{ post.title }}</h2>
+          <div>{{ post.meta_description }}</div>
         </div>
-        <img [src]="post.feature_image" alt="" srcset="" srcset="{{post.feature_image | ghostSrcsetPipe}}">
+        <img
+          [src]="post.feature_image"
+          alt=""
+          srcset=""
+          srcset="{{post.feature_image | ghostSrcsetPipe}}"
+        />
       </a>
     </ng-template>
   </div>
-  <button id="slide-left" (click)="scrollLeft()"><i class="material-icons">navigate_before</i></button>
-  <button id="slide-right" (click)="scrollRight()"><i class="material-icons">navigate_next</i></button>
+  <button id="slide-left" (click)="scrollLeft()">
+    <i class="material-icons">navigate_before</i>
+  </button>
+  <button id="slide-right" (click)="scrollRight()">
+    <i class="material-icons">navigate_next</i>
+  </button>
 </div>
-<div class="content">
-  <div class="center">
-    <h1 class="center">Herzlich Willkommen beim DRK Ortsverein Gärtringen.</h1>
-    <app-post-cards [posts]="angebote"></app-post-cards>
+<div class="content center">
+  <h1 class="center">DRK Ortsverein Gärtringen</h1>
+  <div id="subtitle">
+    Das Deutsche Rote Kreuz rettet Menschen, hilft in Notlagen, bietet eine
+    Gemeinschaft, steht den Armen und Bedürftigen bei und wacht über das
+    humanitäre Völkerrecht – in Deutschland und in der ganzen Welt.
+  </div>
+  <div class="post-cards" id="main-offers">
+    <a [routerLink]="'/' + sandienst.slug" class="post-card">
+      <img class="post-card-image" [src]="sandienst.feature_image" alt="" srcset="{{sandienst.feature_image | ghostSrcsetPipe}}">
+      <div class="post-card-content">
+        <h2>{{sandienst.title}}</h2>
+        <div>{{sandienst.excerpt}}</div>
+      </div>
+    </a>
+    <a [routerLink]="'/' + ehKurs.slug" class="post-card">
+      <img class="post-card-image" [src]="ehKurs.feature_image" alt="" srcset="{{ehKurs.feature_image | ghostSrcsetPipe}}">
+      <div class="post-card-content">
+        <h2>{{ehKurs.title}}</h2>
+        <div>{{ehKurs.excerpt}}</div>
+      </div>
+    </a>
+    <a [routerLink]="'/' + blutspende.slug" class="post-card">
+      <img class="post-card-image" [src]="blutspende.feature_image" alt="" srcset="{{blutspende.feature_image | ghostSrcsetPipe}}">
+      <div class="post-card-content">
+        <h2>{{blutspende.title}}</h2>
+        <div>{{blutspende.excerpt}}</div>
+      </div>
+    </a>
   </div>
 </div>
-<div class="red content">
-  <div class="center">
-    <h2>Wir brauchen Dich!</h2>
-    <app-post-cards [posts]="aktivWerden"></app-post-cards>
-  </div>
+<div class="red content center">
+  <h2>Aktuelles aus dem Ortsverein</h2>
+  <app-post-cards [posts]="news" [showDate]=true></app-post-cards>
 </div>
-<div class="content">
-  <div class="center">
-      <app-post-cards [posts]="hvo"></app-post-cards>
-
-  </div>
+<div class="content center">
+  <h2>Termine</h2>
+  <app-post-cards [posts]="hvo"></app-post-cards>
 </div>

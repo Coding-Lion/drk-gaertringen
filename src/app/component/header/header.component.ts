@@ -16,7 +16,7 @@ import { Platform } from "@angular/cdk/platform";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.css"]
+  styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
   @Output() menuClicked = new EventEmitter<any>();

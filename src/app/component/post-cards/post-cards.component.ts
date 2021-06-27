@@ -10,6 +10,7 @@ export class PostCardsComponent implements OnInit {
 
   @Input() public posts: Post[];
   @Input() public overlap: boolean = false;
+  @Input() public showDate: boolean = false;
   constructor() { }
 
   ngOnInit() {
