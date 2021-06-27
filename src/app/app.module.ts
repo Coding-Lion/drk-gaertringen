@@ -1,34 +1,37 @@
-import { BrowserModule, DomSanitizer, BrowserTransferStateModule } from "@angular/platform-browser";
+import {
+  BrowserModule,
+  DomSanitizer,
+  BrowserTransferStateModule,
+} from "@angular/platform-browser";
 import {
   NgModule,
   PLATFORM_ID,
   APP_ID,
   Inject,
   PipeTransform,
-  Pipe
+  Pipe,
 } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { PostComponent } from "./page/post/post.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { DemoMaterialModule } from "./material-module";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { HeaderComponent } from "./component/header/header.component";
-import { FormsModule } from "@angular/forms";
 import { TagsComponent } from "./page/tags/tags.component";
 import { CommonModule } from "@angular/common";
 import { TagComponent } from "./page/tag/tag.component";
-import { HttpClientModule } from '@angular/common/http';
-import { GhostApi } from './helper/ghostApi';
-import { IsSameOrigin } from './helper/isSameOrigin';
-import { WelcomeComponent } from './page/welcome/welcome.component';
-import { PostCardsComponent } from './component/post-cards/post-cards.component';
-import { FooterComponent } from './component/footer/footer.component';
-import { MetaHelper } from './helper/metaHelper';
-import { LinkService } from './helper/linkService';
-import { ScriptService } from './helper/scriptService';
-import { NotFoundComponent } from './page/not-found/not-found.component';
-import { GhostSrcsetPipePipe } from './helper/ghostSrcsetPipe.pipe';
+import { HttpClientModule } from "@angular/common/http";
+import { GhostApi } from "./helper/ghostApi";
+import { IsSameOrigin } from "./helper/isSameOrigin";
+import { WelcomeComponent } from "./page/welcome/welcome.component";
+import { PostCardsComponent } from "./component/post-cards/post-cards.component";
+import { FooterComponent } from "./component/footer/footer.component";
+import { MetaHelper } from "./helper/metaHelper";
+import { LinkService } from "./helper/linkService";
+import { ScriptService } from "./helper/scriptService";
+import { NotFoundComponent } from "./page/not-found/not-found.component";
+import { GhostSrcsetPipePipe } from "./helper/ghostSrcsetPipe.pipe";
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -53,31 +56,24 @@ export class SanitizeHtml implements PipeTransform {
     PostCardsComponent,
     FooterComponent,
     NotFoundComponent,
-    GhostSrcsetPipePipe
+    GhostSrcsetPipePipe,
   ],
   imports: [
-    FormsModule,
+    // FormsModule,
     BrowserAnimationsModule,
-    BrowserModule.withServerTransition({ appId: 'drk-angular' }),
+    BrowserModule.withServerTransition({ appId: "drk-angular" }),
     BrowserTransferStateModule,
     AppRoutingModule,
-    DemoMaterialModule,
+    MatSidenavModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [
-    GhostApi,
-    IsSameOrigin,
-    MetaHelper,
-    LinkService,
-    ScriptService
-  ],
-  bootstrap: [AppComponent]
+  providers: [GhostApi, IsSameOrigin, MetaHelper, LinkService, ScriptService],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(APP_ID) private appId: string
-  ) {
-  }
+  ) {}
 }
