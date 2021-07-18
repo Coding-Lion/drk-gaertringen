@@ -26,7 +26,7 @@ export class MetaHelper {
 
         try {
             this.script.removeTag("type='application/ld+json'");
-            this.link.removeTag("rel='amphtml'");
+            // this.link.removeTag("rel='amphtml'");
             this.link.removeTag("rel='canonical'");
             this.meta.removeTag("property='article:published_time'");
             this.meta.removeTag("property='article:modified_time'");
@@ -51,7 +51,7 @@ export class MetaHelper {
         this.meta.updateTag({ name: "twitter:image", content: data.feature_image });
         try {
             this.script.removeTag("type='application/ld+json'");
-            this.link.removeTag("rel='amphtml'");
+            // this.link.removeTag("rel='amphtml'");
             this.link.removeTag("rel='canonical'");
             this.meta.removeTag("property='article:published_time'");
             this.meta.removeTag("property='article:modified_time'");
@@ -78,12 +78,12 @@ export class MetaHelper {
         this.meta.updateTag({ name: "twitter:image", content: data.feature_image });
         try {
             this.script.removeTag("type='application/ld+json'");
-            this.link.removeTag("rel='amphtml'");
+            // this.link.removeTag("rel='amphtml'");
             this.link.removeTag("rel='canonical'");
         } catch (error) {
             
         }
-        this.link.addTag({ rel: "amphtml", href: data.url + "amp/"})
+        // this.link.addTag({ rel: "amphtml", href: data.url + "amp/"})
         this.link.addTag({ rel: "canonical", href: data.url })
         this.script.addTag({ type: "application/ld+json" }, JSON.stringify(
             {

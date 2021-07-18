@@ -22,6 +22,10 @@ import { MetaHelper } from 'src/app/helper/metaHelper';
   styleUrls: ["./post.component.scss"],
 })
 export class PostComponent implements OnInit {
+  showSchedule: boolean = false;
+  beforeSchedule: string = "";
+  scheduleCategory: string = "";
+  scheduleFallback: string = "";
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -53,6 +57,22 @@ export class PostComponent implements OnInit {
       this.post = data.data.page;
       this.titleService.setTitle(data.data.page.meta_title || data.data.page.title + " | DRK Gärtringen");
       this.metaHelper.updatePageMeta(data.data.page, data.data.settings);
+      if (this.post.codeinjection_head) {
+        try {
+          const data = JSON.parse(this.post.codeinjection_head);
+          this.showSchedule = data.showSchedule;
+          this.beforeSchedule = data.beforeSchedule;
+          this.scheduleCategory = data.scheduleCategory;
+          this.scheduleFallback = data.scheduleFallback;
+        } catch (error) {
+          console.log(error);
+          this.showSchedule = false;
+          this.beforeSchedule = '';
+        }
+      } else {
+        this.showSchedule = false;
+        this.beforeSchedule = '';
+      }
     });
   }
 }

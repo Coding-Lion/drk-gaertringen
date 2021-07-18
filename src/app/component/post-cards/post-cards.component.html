@@ -1,6 +1,6 @@
 <div class="post-cards" [class.overlap]="overlap">
   <a *ngFor="let post of posts" [routerLink]="'/' + post.slug" class="post-card">
-    <img class="post-card-image" *ngIf="post.feature_image" [src]="post.feature_image" alt="" srcset="{{post.feature_image | ghostSrcsetPipe}}">
+    <img class="post-card-image" *ngIf="post.feature_image" [src]="post.feature_image" loading="lazy" alt="" sizes="(max-width: 1000px) 400px, 600px" srcset="{{post.feature_image | ghostSrcsetPipe}}">
     <div class="post-card-content">
       <div *ngIf="post.primary_tag  && !showDate" class="post-card-tag">{{post.primary_tag.name}}</div>
       <div *ngIf="showDate" class="post-card-tag">{{post.published_at | dateFormatPipe}}</div>

@@ -33,6 +33,8 @@ import { ScriptService } from "./helper/scriptService";
 import { NotFoundComponent } from "./page/not-found/not-found.component";
 import { GhostSrcsetPipePipe } from "./helper/ghostSrcsetPipe.pipe";
 import { DateFormatPipePipe } from "./helper/date-format-pipe.pipe";
+import { ScheduleComponent } from './component/schedule/schedule.component';
+import { CalendarService } from "./helper/calendarService";
 
 @Pipe({ name: "safeHtml" })
 export class SanitizeHtml implements PipeTransform {
@@ -58,7 +60,8 @@ export class SanitizeHtml implements PipeTransform {
     FooterComponent,
     NotFoundComponent,
     GhostSrcsetPipePipe,
-    DateFormatPipePipe
+    DateFormatPipePipe,
+    ScheduleComponent
   ],
   imports: [
     // FormsModule,
@@ -70,7 +73,7 @@ export class SanitizeHtml implements PipeTransform {
     CommonModule,
     HttpClientModule,
   ],
-  providers: [GhostApi, IsSameOrigin, MetaHelper, LinkService, ScriptService],
+  providers: [GhostApi, IsSameOrigin, MetaHelper, LinkService, ScriptService, CalendarService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

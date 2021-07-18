@@ -13,6 +13,8 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, resolve: { data: WelcomeResolveService } },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
+
   { path: 'tag/:tag', component: TagComponent, resolve: { posts: TagPostsResolveService, tag: TagResolveService } },
   { path: 'tag', component: TagsComponent},
   { path: ':id', component: PostComponent, resolve: { data: PostResolveService } },

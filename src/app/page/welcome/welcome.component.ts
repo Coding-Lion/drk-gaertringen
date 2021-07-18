@@ -34,6 +34,7 @@ export class WelcomeComponent implements OnInit {
   angebote: Post[] = [];
   aktivWerden: Post[] = [];
   news: Post[] = [];
+  welcome: Post[] = [];
   
   blutspende: Post;
   ehKurs: Post;
@@ -63,6 +64,7 @@ export class WelcomeComponent implements OnInit {
         this.aktivWerden = this.pushThree(data.data.aktivWerden);
         this.news = data.data.news.slice(0,4);
 
+        this.welcome = data.data.welcome;
         for (const post of data.data.welcome) {
           switch (post.slug) {
             case "rotkreuzkurs-erste-hilfe":

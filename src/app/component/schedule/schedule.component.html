@@ -1,0 +1,15 @@
+<div id="events" [class.category]="scheduleCategory" [class.overview]="!scheduleCategory">
+  <a *ngFor="let event of events" class="event" [routerLink]="'/' + event.categories[0]">
+    <div class="date">
+      <div class="day">{{event.startDate.toLocaleDateString('de-DE', {day: "numeric"})}}</div>
+      <div class="month">{{event.startDate.toLocaleDateString('de-DE', {month: "short"})}}</div>
+    </div>
+    <div class="content">
+
+      <div class="title">{{event.name}}</div>
+      <div class="location">{{event.location}}</div>
+      <div class="time">{{event.startDate.toLocaleTimeString('de-DE',{timeStyle: 'short'})}} - {{event.endDate.toLocaleTimeString('de-DE',{timeStyle: 'short'})}}</div>
+    </div>
+  </a>
+</div>
+<div *ngIf="events.length === 0" [innerHTML]="fallback | safeHtml"></div>

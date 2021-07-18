@@ -9,7 +9,7 @@
         <img
           [src]="post.feature_image"
           alt=""
-          srcset=""
+          sizes="(max-width: 600px) 600px,(max-width: 1000px) 1000px, 1600px"
           srcset="{{post.feature_image | ghostSrcsetPipe}}"
         />
       </a>
@@ -29,35 +29,25 @@
     Gemeinschaft, steht den Armen und Bedürftigen bei und wacht über das
     humanitäre Völkerrecht – in Deutschland und in der ganzen Welt.
   </div>
-  <div class="post-cards" id="main-offers">
-    <a [routerLink]="'/' + sandienst.slug" class="post-card">
-      <img class="post-card-image" [src]="sandienst.feature_image" alt="" srcset="{{sandienst.feature_image | ghostSrcsetPipe}}">
-      <div class="post-card-content">
-        <h2>{{sandienst.title}}</h2>
-        <div>{{sandienst.excerpt}}</div>
-      </div>
-    </a>
-    <a [routerLink]="'/' + ehKurs.slug" class="post-card">
-      <img class="post-card-image" [src]="ehKurs.feature_image" alt="" srcset="{{ehKurs.feature_image | ghostSrcsetPipe}}">
-      <div class="post-card-content">
-        <h2>{{ehKurs.title}}</h2>
-        <div>{{ehKurs.excerpt}}</div>
-      </div>
-    </a>
-    <a [routerLink]="'/' + blutspende.slug" class="post-card">
-      <img class="post-card-image" [src]="blutspende.feature_image" alt="" srcset="{{blutspende.feature_image | ghostSrcsetPipe}}">
-      <div class="post-card-content">
-        <h2>{{blutspende.title}}</h2>
-        <div>{{blutspende.excerpt}}</div>
-      </div>
-    </a>
+  <div class="post-cards" id="main-offers" [class]="'items'+ welcome.length">
+    <ng-container *ngFor="let post of welcome; let i = index">
+      <a [routerLink]="'/' + post.slug" class="post-card">
+        <img class="post-card-image" [src]="post.feature_image" alt="" srcset="{{post.feature_image | ghostSrcsetPipe}}" sizes="(max-width: 1000px) 400px, 600px" >
+        <div class="post-card-content">
+          <h2>{{post.title}}</h2>
+          <div>{{post.excerpt}}</div>
+        </div>
+      </a>
+      <div class="break" *ngIf="welcome.length == 4 && i == 1"></div>
+    </ng-container>
   </div>
 </div>
+
 <div class="red content center">
-  <h2>Aktuelles aus dem Ortsverein</h2>
+  <a routerLink="/tag/aktuelles"><h2>Aktuelles aus dem Ortsverein</h2></a>
   <app-post-cards [posts]="news" [showDate]=true></app-post-cards>
 </div>
 <div class="content center">
   <h2>Termine</h2>
-  <app-post-cards [posts]="hvo"></app-post-cards>
+  <app-schedule></app-schedule>
 </div>
