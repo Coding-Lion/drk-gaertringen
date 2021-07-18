@@ -5,3 +5,77 @@ section {
 .post-title {
     margin-top: 0px;
 }
+
+#side {
+    position: absolute;
+    top: 135px;
+    right: -302px;
+    height: 100%;
+
+
+    #sticky {
+        position: sticky;
+        top: 72px;
+        right: 0;
+    }
+
+    .card {
+        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+        margin-bottom: 16px;
+        background-color: white;
+        width: 285px;
+
+        .text {
+            padding: 16px;
+        }
+
+        h4 {
+            margin-top: 0;
+        }
+
+        img {
+            margin: 0 auto;
+            width: 100%;
+            max-height: 325px;
+            object-fit: cover;
+        }
+    }
+
+    @media only screen and (max-width: 1700px) {
+        position: relative;
+        top: initial;
+        right: initial;
+        border-top: 1px solid #bdbdbd;
+        margin-top: 32px;
+        padding-top: 8px;
+
+        #sticky {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            box-shadow: initial;
+            width: 380px;
+            // display: flex;
+
+            img {
+                display: none;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+
+        #sticky {
+            display: block;
+        }
+
+        .card {
+            .text {
+                padding: 0;
+            }
+        }
+    }
+}

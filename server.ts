@@ -8,6 +8,7 @@ import fetch from "node-fetch";
 import { AppServerModule } from "./src/main.server";
 import { APP_BASE_HREF } from "@angular/common";
 import { existsSync } from "fs";
+import mcache from 'memory-cache';
 
 const calendarUrl =
   "https://files.drk-gaertringen.de/remote.php/dav/public-calendars/tA3YfEPtzcN3qYte?export";
@@ -33,9 +34,24 @@ export function app() {
   server.set("view engine", "html");
   server.set("views", distFolder);
 
-  // Example Express Rest API endpoints
-  // app.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
+  const cache = (duration) => {
+    return (req,res, next) => {
+      const key = '__express__' + req.originalUrl || req.url;
+      const cachedBody = mcache.get(key);
+      if (cachedBody) {
+        res.send(cachedBody);
+        return;
+      } else {
+        res.sendResponse = res.send;
+        res.send = (body) => {
+          mcache.put(key, body, duration * 1000);
+          res.sendResponse(body);
+        }
+        next();
+      }
+    }
+  }
+
   server.get(
     "*.*",
     express.static(distFolder, {
@@ -44,7 +60,12 @@ export function app() {
   );
 
   // All regular routes use the Universal engine
-  server.get("*", (req, res) => {
+  server.get("*", cache(60), (req, res) => {
+    res.set('Strict-Transport-Security','max-age=31536000');
+    res.set('Content-Security-Policy','default-src');
+    res.set('X-Frame-Options','SAMEORIGIN');
+    res.set('X-XSS-Protection','0');
+    res.set('X-Content-Type-Options','nosniff');
     res.render(indexHtml, {
       req,
       providers: [

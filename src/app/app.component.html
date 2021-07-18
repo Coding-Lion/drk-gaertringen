@@ -1,6 +1,6 @@
 
 <app-header (menuClicked)="sidenav.toggle()" (closeMenuClicked)="sidenav.close()"></app-header>
-<mat-sidenav-container>
+<mat-sidenav-container id="sidenav">
   <mat-sidenav #sidenav>
       <ng-template ngFor let-item [ngForOf]="settings.navigation">
         <a class="nav-item" *ngIf="isSameOrigin.test(item.url)" [routerLink]="item.url" (click)="sidenav.toggle()">{{item.label}}</a>

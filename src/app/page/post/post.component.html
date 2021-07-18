@@ -1,15 +1,52 @@
 <article class="content post-full" [class.no-image]="!post.feature_image">
 
-  <figure *ngIf="post.feature_image"  class="post-full-image">
+  <figure *ngIf="post.feature_image" class="post-full-image">
     <img [src]="post.feature_image" [alt]="post.title" srcset="{{post.feature_image | ghostSrcsetPipe}}">
   </figure>
 
+
+
   <section class="post-full-content">
-    <a *ngIf="post.primary_tag" class="post-tag" [routerLink]="'/tag/' + post.primary_tag.slug">{{post.primary_tag.name}}</a>
+
+    <a *ngIf="post.primary_tag" class="post-tag"
+      [routerLink]="'/tag/' + post.primary_tag.slug">{{post.primary_tag.name}}</a>
     <h1 class="post-full-title">{{post.title}}</h1>
+
     <div class="post-content" [innerHTML]="beforeSchedule | safeHtml"></div>
-    <app-schedule [scheduleCategory]="scheduleCategory" [fallback]="scheduleFallback" *ngIf="showSchedule"></app-schedule>
+    <app-schedule [scheduleCategory]="scheduleCategory" [fallback]="scheduleFallback" *ngIf="showSchedule">
+    </app-schedule>
+
     <div class="post-content" [innerHTML]="post.html | safeHtml"></div>
+    <div id="side">
+      <div id="sticky">
+
+        <div class="card" id="contact">
+          <img *ngIf="post.primary_author.profile_image" [src]="post.primary_author.profile_image" width="250"
+            height="300" alt="">
+          <div class="text">
+            <h4 class="o-cms-content__headline">Kontakt</h4>
+            <p>{{post.primary_author.name}}</p>
+            <a href="info@drk-gaertringen.de">info@drk-gaertringen.de</a>
+            <!-- <p class="indent">Tel: 07031 6904 822</p> -->
+            <!-- <p class="indent">Fax: 07031 6904 809</p> -->
+            <!-- <p><a href="javascript:linkTo_UnCryptMailto(%27nbjmup%2BwpisfsAeslcc%5C%2Fpsh%27);" -->
+            <!-- title="Öffnet internen Link im aktuellen Fenster" class="mail">vohrer(at)drkbb.org</a></p> -->
+            <!-- <p>Umberto-Nobile-Str. 10</p> -->
+            <!-- <p>71063 Sindelfingen</p> -->
+            <!-- <h5 class="o-cms-content__headline"><strong>Kurs buchen: 07031 6904 0</strong></h5> -->
+          </div>
+        </div>
+        <div class="card">
+          <div class="text">
+            <h4 class="o-cms-content__headline">Spendenkonto</h4>
+            <p>IBAN:</p>
+            <p>DE59 6035 0130 0001 0738 47</p>
+            <p>BIC:</p>
+            <p>BBKRDE6BXXX</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </article>

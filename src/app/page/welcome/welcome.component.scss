@@ -99,7 +99,8 @@
 
 h1 {
     font-size: 2.5em;
-    margin-top: 32px;
+    margin-top: 0;
+    padding-top: 32px;
     margin-bottom: 16px;
     margin-left: 8px;
     text-align: center;
@@ -125,6 +126,11 @@ h1 {
         break-after: always; /* New syntax */
 
     }
+    &.items3 .post-card {
+        @media (min-width: 1680px) {
+            flex-grow: 1;
+        }
+    }
 
     .post-card {
         display: flex;
@@ -132,7 +138,8 @@ h1 {
         justify-content: center;
         height: 320px;
         flex: initial;
-        width: 510px;
+        width: 506px;
+        
     }
 
     .post-card-image {
@@ -172,9 +179,15 @@ h1 {
 
 .center {
     max-width: 1600px;
+    background-color: white;
+}
+
+.main {
+    background-color: white;
 }
 
 .red {
+
     background-color: #e60005;
 
     h1,
@@ -188,9 +201,16 @@ h1 {
 
 
 .content {
+    box-sizing: border-box;
     padding: 16px;
-
     h2 {
         font-size: 2.3em;
     }
+}
+:host {
+    display: block;
+    margin: 0 auto;
+    max-width: 1600px;
+    
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 }
