@@ -8,6 +8,7 @@ import fetch from "node-fetch";
 import { AppServerModule } from "./src/main.server";
 import { APP_BASE_HREF } from "@angular/common";
 import { existsSync } from "fs";
+import compression from "compression";
 import mcache from 'memory-cache';
 
 const calendarUrl =
@@ -52,6 +53,9 @@ export function app() {
     }
   }
 
+  server.use(compression())
+
+
   server.get(
     "*.*",
     express.static(distFolder, {
@@ -62,7 +66,7 @@ export function app() {
   // All regular routes use the Universal engine
   server.get("*", cache(60), (req, res) => {
     res.set('Strict-Transport-Security','max-age=31536000');
-    res.set('Content-Security-Policy','default-src');
+    res.set('Content-Security-Policy','default-src \'self\' \'unsafe-inline\' unsplash.com *.unsplash.com; img-src *; font-src *;');
     res.set('X-Frame-Options','SAMEORIGIN');
     res.set('X-XSS-Protection','0');
     res.set('X-Content-Type-Options','nosniff');

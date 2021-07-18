@@ -9,8 +9,20 @@ if (environment.production) {
   enableProdMode();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function addScripts() {
   platformBrowserDynamic()
     .bootstrapModule(AppModule)
     .catch(err => console.error(err));
-});
+}
+
+//use requestIdleCallback to schedule work.
+if ('requestIdleCallback' in window) {
+  //@ts-ignore
+  window.requestIdleCallback(addScripts);
+} else {
+  addScripts();
+}
+
+// document.addEventListener("DOMContentLoaded", () => {
+
+// });

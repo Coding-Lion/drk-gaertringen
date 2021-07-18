@@ -131,10 +131,12 @@ header.top {
     margin-bottom: 32px;
 
   }
-  .mobile-nav i {
+  .mobile-nav {
+    width: 64px;
     font-size: 40px;
     color: white;
-    padding: 8px;
-    background-color: rgb(0,117,169)
+    padding: 4px;
+    background-color: rgb(0,117,169);
+    fill: white;
   }
 }
